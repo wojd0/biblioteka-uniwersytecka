@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>Dodaj książkę</h2>
+<div mat-dialog-content>
+  <form #bookForm="ngForm" class="add-book-form">
+    <mat-form-field class="add-book-field">
+      <mat-label>Tytuł</mat-label>
+      <input matInput [(ngModel)]="book.title" name="title" required #title="ngModel" />
+      <mat-error *ngIf="title.invalid && (title.dirty || title.touched)">
+        Tytuł jest wymagany
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="add-book-field">
+      <mat-label>Autor</mat-label>
+      <input matInput [(ngModel)]="book.author" name="author" required #author="ngModel" />
+      <mat-error *ngIf="author.invalid && (author.dirty || author.touched)">
+        Autor jest wymagany
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="add-book-field">
+      <mat-label>Rok wydania</mat-label>
+      <input matInput type="number" [(ngModel)]="book.publicationYear" name="publicationYear"
+        required #publicationYear="ngModel" />
+      <mat-error
+        *ngIf="publicationYear.invalid && (publicationYear.dirty || publicationYear.touched)">
+        Rok wydania jest wymagany
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="add-book-field">
+      <mat-label>Kategoria</mat-label>
+      <input matInput [(ngModel)]="book.category" name="category" />
+    </mat-form-field>
+    <mat-form-field class="add-book-field">
+      <mat-label>Półka</mat-label>
+      <input matInput [(ngModel)]="book.shelf" name="shelf" />
+    </mat-form-field>
+    <div *ngIf="loading">Dodawanie książki...</div>
+    <div *ngIf="error" class="add-book-error">{{ error }}</div>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Anuluj</button>
+  <button mat-raised-button color="primary"
+    [disabled]="!book.title || !book.author || !book.publicationYear" (click)="onAdd()">
+    Dodaj
+  </button>
+</div>

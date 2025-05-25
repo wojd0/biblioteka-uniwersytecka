@@ -15,52 +15,7 @@ import { inject } from '@angular/core';
 @Component({
   selector: 'app-add-book-dialog',
   standalone: true,
-  template: `
-    <h2 mat-dialog-title>Dodaj książkę</h2>
-    <div mat-dialog-content>
-      <form #bookForm="ngForm">
-        <mat-form-field style="width:100%">
-          <mat-label>Tytuł</mat-label>
-          <input matInput [(ngModel)]="book.title" name="title" required />
-        </mat-form-field>
-        <mat-form-field style="width:100%">
-          <mat-label>Autor</mat-label>
-          <input matInput [(ngModel)]="book.author" name="author" required />
-        </mat-form-field>
-        <mat-form-field style="width:100%">
-          <mat-label>Rok wydania</mat-label>
-          <input
-            matInput
-            type="number"
-            [(ngModel)]="book.publicationYear"
-            name="publicationYear"
-            required
-          />
-        </mat-form-field>
-        <mat-form-field style="width:100%">
-          <mat-label>Kategoria</mat-label>
-          <input matInput [(ngModel)]="book.category" name="category" />
-        </mat-form-field>
-        <mat-form-field style="width:100%">
-          <mat-label>Półka</mat-label>
-          <input matInput [(ngModel)]="book.shelf" name="shelf" />
-        </mat-form-field>
-        <div *ngIf="loading">Dodawanie książki...</div>
-        <div *ngIf="error" style="color: red">{{ error }}</div>
-      </form>
-    </div>
-    <div mat-dialog-actions align="end">
-      <button mat-button (click)="onCancel()">Anuluj</button>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!book.title || !book.author || !book.publicationYear"
-        (click)="onAdd()"
-      >
-        Dodaj
-      </button>
-    </div>
-  `,
+  templateUrl: './add-book-dialog.component.html',
   imports: [
     CommonModule,
     FormsModule,

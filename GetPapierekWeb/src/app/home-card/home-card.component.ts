@@ -10,6 +10,6 @@ import { NavbarComponent } from '../navbar/navbar.component';
   standalone: true,
   templateUrl: './home-card.component.html',
   styleUrls: ['./home-card.component.scss'],
-  imports: [MatCardModule, MatIconModule, MatButtonModule, NavbarComponent],
+  imports: [MatCardModule, MatIconModule, MatButtonModule],
 })
 export class HomeCardComponent {}
