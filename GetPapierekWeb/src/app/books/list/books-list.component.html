@@ -1,45 +1,41 @@
-<div class="books-list-container">
-  <h2>Lista książek</h2>
+<div class="books-list">
+  <h2 class="books-list__title">Lista książek</h2>
 
   <app-search-box [(value)]="searchTerm" label="Szukaj po tytule, autorze lub kategorii..."
-    (valueChange)="onSearchChange()">
-  </app-search-box>
+    (valueChange)="onSearchChange()" class="books-list__search"></app-search-box>
 
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 books-table">
-
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 books-list__table">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Tytuł</th>
       <td mat-cell *matCellDef="let book">{{ book.title }}</td>
     </ng-container>
-
     <ng-container matColumnDef="author">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Autor</th>
       <td mat-cell *matCellDef="let book">{{ book.author }}</td>
     </ng-container>
-
     <ng-container matColumnDef="year">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Rok wydania</th>
       <td mat-cell *matCellDef="let book">{{ book.publicationYear }}</td>
     </ng-container>
-
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Kategoria</th>
       <td mat-cell *matCellDef="let book">{{ book.category?.name }}</td>
     </ng-container>
-
     <ng-container matColumnDef="shelf">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Półka</th>
       <td mat-cell *matCellDef="let book">{{ book.shelf }}</td>
     </ng-container>
-
     <tr mat-header-row *matHeaderRowDef="['title','author','year','category','shelf']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['title','author','year','category','shelf'];"></tr>
   </table>
-  <div *ngIf="filteredBooks.length === 0" style="text-align:center; padding: 1rem;">
+
+  <div *ngIf="filteredBooks.length === 0" class="books-list__empty">
     {{ searchTerm.trim() ? 'Brak książek spełniających kryteria wyszukiwania' : 'Brak książek do
     wyświetlenia' }}
   </div>
-  <button mat-raised-button color="primary" (click)="openAddDialog()" style="margin-top: 1rem;">
-    <mat-icon>add</mat-icon> Dodaj książkę
+
+  <button mat-raised-button color="primary" (click)="openAddDialog()" class="books-list__add-btn">
+    <mat-icon>add</mat-icon>
+    Dodaj książkę
   </button>
 </div>

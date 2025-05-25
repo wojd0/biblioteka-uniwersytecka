@@ -5,4 +5,4 @@ When asked to perform some action do not ask if an action should be taken nor re
 
 ## GetPapierekWeb specific instructions
 
-Text inside this web app should be in polish.
+Text inside this web app should be in polish. Use latest angular framework features. Space out and make html readable. Use bem naming convention if classes are needed.

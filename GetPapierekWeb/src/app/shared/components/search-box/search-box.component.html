@@ -1,4 +1,4 @@
-<mat-form-field appearance="outline" class="search-input">
+<mat-form-field appearance="outline" class="search-box">
   <mat-label>{{ label }}</mat-label>
   <input matInput [ngModel]="value" (ngModelChange)="valueChange.emit($event)"
     [placeholder]="placeholder" (keyup.enter)="onEnterKey($event)" />

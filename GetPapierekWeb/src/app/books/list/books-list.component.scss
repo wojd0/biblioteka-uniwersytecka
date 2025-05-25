@@ -49,3 +49,38 @@
 .rentals-table tr:nth-child(even) {
   background: #fafafa;
 }
+
+.books-list {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.books-list__title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.books-list__search {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.books-list__table {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1.5rem;
+}
+
+.books-list__empty {
+  color: #888;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.books-list__add-btn {
+  margin-top: 1rem;
+}

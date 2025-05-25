@@ -1,16 +1,19 @@
 <mat-toolbar color="primary" class="navbar">
-  <a class="navbar-title" routerLink="/" style="text-decoration: none; color: inherit">
+  <a class="navbar__title" routerLink="/">
     <mat-icon>menu_book</mat-icon>
     GetPapierek
   </a>
-  <span class="spacer"></span>
-  <button mat-button routerLink="/ksiazki">
-    <mat-icon>menu_book</mat-icon> Książki
+  <span class="navbar__spacer"></span>
+  <button mat-button routerLink="/ksiazki" class="navbar__link">
+    <mat-icon>menu_book</mat-icon>
+    Książki
   </button>
-  <button mat-button routerLink="/wypozyczenia">
-    <mat-icon>assignment_returned</mat-icon> Wypożyczenia
+  <button mat-button routerLink="/wypozyczenia" class="navbar__link">
+    <mat-icon>assignment_returned</mat-icon>
+    Wypożyczenia
   </button>
-  <button mat-button routerLink="/uzytkownicy">
-    <mat-icon>people</mat-icon> Użytkownicy
+  <button mat-button routerLink="/uzytkownicy" class="navbar__link">
+    <mat-icon>people</mat-icon>
+    Użytkownicy
   </button>
 </mat-toolbar>

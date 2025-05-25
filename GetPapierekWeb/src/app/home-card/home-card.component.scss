@@ -1,3 +1,43 @@
+.home {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+}
+
+.home__card {
+  width: 100%;
+  max-width: 600px;
+}
+
+.home__header {
+  display: flex;
+  align-items: center;
+}
+
+.home__icon {
+  margin-right: 1rem;
+}
+
+.home__title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.home__content {
+  font-size: 1.1rem;
+  line-height: 1.7;
+}
+
+.home__features {
+  margin: 1.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.home__feature {
+  margin-bottom: 0.5rem;
+}
+
 .home-container {
   display: flex;
   justify-content: center;

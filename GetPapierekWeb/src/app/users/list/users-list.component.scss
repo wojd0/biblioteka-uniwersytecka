@@ -9,6 +9,19 @@
   padding: 2rem;
 }
 
+.users-list {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.users-list__title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
 .search-input {
   width: 100%;
   max-width: 350px;
@@ -18,10 +31,22 @@
   border-radius: 4px;
 }
 
+.users-list__search {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
 .users-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
+}
+
+.users-list__table {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1.5rem;
 }
 
 .users-table th,
@@ -37,4 +62,14 @@
 
 .users-table tr:nth-child(even) {
   background: #fafafa;
+}
+
+.users-list__empty {
+  color: #888;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.users-list__add-btn {
+  margin-top: 1rem;
 }
