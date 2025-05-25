@@ -44,6 +44,23 @@ namespace GetPapierek.Repositories
 
         public async Task<Rental> AddAsync(Rental rental)
         {
+            // Attach existing user and book if present
+            if (rental.UserId != 0)
+            {
+                var existingUser = await _context.Users.FindAsync(rental.UserId);
+                if (existingUser != null)
+                {
+                    rental.User = existingUser;
+                }
+            }
+            if (rental.BookId != 0)
+            {
+                var existingBook = await _context.Books.FindAsync(rental.BookId);
+                if (existingBook != null)
+                {
+                    rental.Book = existingBook;
+                }
+            }
             // Set default values for new loan
             rental.RentalDate = DateTime.Now;
             rental.Status = RentalStatus.Rented;

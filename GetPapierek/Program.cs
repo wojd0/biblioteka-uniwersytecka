@@ -9,9 +9,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllers();
 
-// Register DbContext with in-memory database for prototyping
+// Register DbContext with SQLite
 builder.Services.AddDbContext<LibraryDbContext>(options =>
-    options.UseInMemoryDatabase("LibraryDB"));
+    options.UseSqlite("Data Source=library.db"));
 
 // Register repositories
 builder.Services.AddScoped<IBookRepository, BookRepository>();
