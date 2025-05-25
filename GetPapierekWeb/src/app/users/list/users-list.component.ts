@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UsersService, User } from '../users.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,13 +30,13 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
   ],
 })
 export class UsersListComponent implements OnInit {
+  private usersService = inject(UsersService);
+
   users: User[] = [];
   filteredUsers: User[] = [];
   searchTerm = '';
   dataSource = new MatTableDataSource<User>([]);
   @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private usersService: UsersService) {}
 
   ngOnInit() {
     this.loadUsers();

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Book } from './books.service';
@@ -14,9 +14,9 @@ export interface SearchResult {
 
 @Injectable({ providedIn: 'root' })
 export class SearchService {
-  private apiUrl = 'http://localhost:5241/api/Search';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:5241/api/Search';
 
   search(query: string): Observable<SearchResult> {
     return this.http.get<SearchResult>(

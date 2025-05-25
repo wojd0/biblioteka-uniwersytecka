@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { BooksService, Book } from '../books.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -28,13 +28,15 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
   ],
 })
 export class BooksListComponent implements OnInit {
+  private booksService = inject(BooksService);
+
   books: Book[] = [];
   filteredBooks: Book[] = [];
   searchTerm = '';
   dataSource = new MatTableDataSource<Book>([]);
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private booksService: BooksService) {
+  constructor() {
     this.dataSource.sortingDataAccessor = (item: Book, property: string) => {
       switch (property) {
         case 'year':

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { RentalsService, Rental } from '../rentals.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -30,13 +30,13 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
   ],
 })
 export class RentalsListComponent implements OnInit {
+  private rentalsService = inject(RentalsService);
+
   rentals: Rental[] = [];
   filteredRentals: Rental[] = [];
   searchTerm = '';
   dataSource = new MatTableDataSource<Rental>([]);
   @ViewChild(MatSort) sort!: MatSort;
-
-  constructor(private rentalsService: RentalsService) {}
 
   ngOnInit() {
     this.loadRentals();

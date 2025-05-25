@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
@@ -15,9 +15,9 @@ export interface Rental {
 
 @Injectable({ providedIn: 'root' })
 export class RentalsService {
-  private apiUrl = 'http://localhost:5241/api/Rental';
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
+  private apiUrl = 'http://localhost:5241/api/Rental';
 
   getRentals(): Observable<Rental[]> {
     return this.http.get<Rental[]>(this.apiUrl);
