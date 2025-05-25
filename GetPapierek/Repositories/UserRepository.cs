@@ -41,7 +41,7 @@ namespace GetPapierek.Repositories
 
         public async Task<User> UpdateAsync(User uzytkownik)
         {
-            var existingUser = await _context.Uzytkownicy.FindAsync(uzytkownik.IdUzytkownika);
+            var existingUser = await _context.Uzytkownicy.FindAsync(uzytkownik.UserId);
             if (existingUser == null)
                 return null;
 
@@ -67,7 +67,7 @@ namespace GetPapierek.Repositories
         {
             // In a real application, we would hash the password and compare hashes
             var uzytkownik = await _context.Uzytkownicy
-                .FirstOrDefaultAsync(u => u.Email == email && u.Haslo == haslo);
+                .FirstOrDefaultAsync(u => u.Email == email && u.Password == haslo);
 
             return uzytkownik;
         }

@@ -16,14 +16,14 @@ namespace GetPapierek.Repositories
 
         public async Task<List<Book>> GetAllAsync()
         {
-            return await _context.Ksiazki.Include(k => k.Kategoria).ToListAsync();
+            return await _context.Ksiazki.Include(k => k.Category).ToListAsync();
         }
 
         public async Task<Book> GetByIdAsync(int id)
         {
             return await _context.Ksiazki
-                .Include(k => k.Kategoria)
-                .FirstOrDefaultAsync(k => k.IdKsiazki == id);
+                .Include(k => k.Category)
+                .FirstOrDefaultAsync(k => k.BookId == id);
         }
 
         public async Task<List<Book>> SearchAsync(string query)
@@ -33,10 +33,10 @@ namespace GetPapierek.Repositories
 
             query = query.ToLower();
             return await _context.Ksiazki
-                .Include(k => k.Kategoria)
-                .Where(k => k.Tytul.ToLower().Contains(query) ||
-                            k.Autor.ToLower().Contains(query) ||
-                            k.Kategoria.NazwaKategorii.ToLower().Contains(query))
+                .Include(k => k.Category)
+                .Where(k => k.Title.ToLower().Contains(query) ||
+                            k.Author.ToLower().Contains(query) ||
+                            k.Category.NazwaKategorii.ToLower().Contains(query))
                 .ToListAsync();
         }
 
@@ -49,7 +49,7 @@ namespace GetPapierek.Repositories
 
         public async Task<Book> UpdateAsync(Book ksiazka)
         {
-            var existingBook = await _context.Ksiazki.FindAsync(ksiazka.IdKsiazki);
+            var existingBook = await _context.Ksiazki.FindAsync(ksiazka.BookId);
             if (existingBook == null)
                 return null;
 

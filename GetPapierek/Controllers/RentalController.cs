@@ -53,20 +53,20 @@ namespace GetPapierek.Controllers
             }
 
             // Check if the book exists
-            var book = await _ksiazkaRepository.GetByIdAsync(wypozyczenie.IdKsiazki);
+            var book = await _ksiazkaRepository.GetByIdAsync(wypozyczenie.BookId);
             if (book == null)
             {
-                return NotFound($"Książka o ID {wypozyczenie.IdKsiazki} nie została znaleziona.");
+                return NotFound($"Książka o ID {wypozyczenie.BookId} nie została znaleziona.");
             }
 
             var addedWypozyczenie = await _wypozyczenieRepository.AddAsync(wypozyczenie);
-            return CreatedAtAction(nameof(GetById), new { id = addedWypozyczenie.IdWypozyczenia }, addedWypozyczenie);
+            return CreatedAtAction(nameof(GetById), new { id = addedWypozyczenie.RentalId }, addedWypozyczenie);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Rental wypozyczenie)
         {
-            if (wypozyczenie == null || id != wypozyczenie.IdWypozyczenia)
+            if (wypozyczenie == null || id != wypozyczenie.RentalId)
             {
                 return BadRequest("Dane wypożyczenia są nieprawidłowe.");
             }

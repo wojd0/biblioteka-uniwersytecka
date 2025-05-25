@@ -31,7 +31,7 @@ namespace GetPapierek.Controllers
 
             // Group results by category for better organization
             var results = books
-                .GroupBy(b => b.Kategoria?.NazwaKategorii ?? "Bez kategorii")
+                .GroupBy(b => b.Category?.NazwaKategorii ?? "Bez kategorii")
                 .Select(g => new
                 {
                     Kategoria = g.Key,
@@ -71,28 +71,28 @@ namespace GetPapierek.Controllers
             if (!string.IsNullOrWhiteSpace(title))
             {
                 title = title.ToLower();
-                filteredBooks = filteredBooks.Where(b => b.Tytul.ToLower().Contains(title));
+                filteredBooks = filteredBooks.Where(b => b.Title.ToLower().Contains(title));
             }
 
             if (!string.IsNullOrWhiteSpace(author))
             {
                 author = author.ToLower();
-                filteredBooks = filteredBooks.Where(b => b.Autor.ToLower().Contains(author));
+                filteredBooks = filteredBooks.Where(b => b.Author.ToLower().Contains(author));
             }
 
             if (categoryId.HasValue)
             {
-                filteredBooks = filteredBooks.Where(b => b.IdKategorii == categoryId.Value);
+                filteredBooks = filteredBooks.Where(b => b.CategoryId == categoryId.Value);
             }
 
             if (yearFrom.HasValue)
             {
-                filteredBooks = filteredBooks.Where(b => b.RokWydania >= yearFrom.Value);
+                filteredBooks = filteredBooks.Where(b => b.PublicationYear >= yearFrom.Value);
             }
 
             if (yearTo.HasValue)
             {
-                filteredBooks = filteredBooks.Where(b => b.RokWydania <= yearTo.Value);
+                filteredBooks = filteredBooks.Where(b => b.PublicationYear <= yearTo.Value);
             }
 
             var results = filteredBooks.ToList();

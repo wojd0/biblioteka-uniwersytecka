@@ -49,13 +49,13 @@ namespace GetPapierek.Controllers
             }
 
             var addedBook = await _ksiazkaRepository.AddAsync(book);
-            return CreatedAtAction(nameof(GetById), new { id = addedBook.IdKsiazki }, addedBook);
+            return CreatedAtAction(nameof(GetById), new { id = addedBook.BookId }, addedBook);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Book book)
         {
-            if (book == null || id != book.IdKsiazki)
+            if (book == null || id != book.BookId)
             {
                 return BadRequest("Dane książki są nieprawidłowe.");
             }

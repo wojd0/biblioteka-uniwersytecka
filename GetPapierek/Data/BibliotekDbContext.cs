@@ -18,19 +18,19 @@ namespace GetPapierek.Data
         {
             // Configure relationships
             modelBuilder.Entity<Book>()
-                .HasOne(k => k.Kategoria)
+                .HasOne(k => k.Category)
                 .WithMany()
-                .HasForeignKey(k => k.IdKategorii);
+                .HasForeignKey(k => k.CategoryId);
 
             modelBuilder.Entity<Rental>()
-                .HasOne(w => w.Uzytkownik)
+                .HasOne(w => w.User)
                 .WithMany()
-                .HasForeignKey(w => w.IdUzytkownika);
+                .HasForeignKey(w => w.UserId);
 
             modelBuilder.Entity<Rental>()
-                .HasOne(w => w.Ksiazka)
+                .HasOne(w => w.Book)
                 .WithMany()
-                .HasForeignKey(w => w.IdKsiazki);
+                .HasForeignKey(w => w.BookId);
 
             // Seed some initial data
             SeedData(modelBuilder);
@@ -48,16 +48,16 @@ namespace GetPapierek.Data
 
             // Seed books
             modelBuilder.Entity<Book>().HasData(
-                new Book { IdKsiazki = 1, Tytul = "Pan Tadeusz", Autor = "Adam Mickiewicz", RokWydania = 1834, IdKategorii = 1, Pulka = "A1" },
-                new Book { IdKsiazki = 2, Tytul = "Lalka", Autor = "Bolesław Prus", RokWydania = 1890, IdKategorii = 1, Pulka = "A1" },
-                new Book { IdKsiazki = 3, Tytul = "Krótka historia czasu", Autor = "Stephen Hawking", RokWydania = 1988, IdKategorii = 2, Pulka = "B2" },
-                new Book { IdKsiazki = 4, Tytul = "Dziady", Autor = "Adam Mickiewicz", RokWydania = 1822, IdKategorii = 1, Pulka = "A1" }
+                new Book { BookId = 1, Title = "Pan Tadeusz", Author = "Adam Mickiewicz", PublicationYear = 1834, CategoryId = 1, Shelf = "A1" },
+                new Book { BookId = 2, Title = "Lalka", Author = "Bolesław Prus", PublicationYear = 1890, CategoryId = 1, Shelf = "A1" },
+                new Book { BookId = 3, Title = "Krótka historia czasu", Author = "Stephen Hawking", PublicationYear = 1988, CategoryId = 2, Shelf = "B2" },
+                new Book { BookId = 4, Title = "Dziady", Author = "Adam Mickiewicz", PublicationYear = 1822, CategoryId = 1, Shelf = "A1" }
             );
 
             // Seed users
             modelBuilder.Entity<User>().HasData(
-                new User { IdUzytkownika = 1, Imie = "Jan", Nazwisko = "Kowalski", Email = "jan.kowalski@example.com", Haslo = "hashed_password" },
-                new User { IdUzytkownika = 2, Imie = "Anna", Nazwisko = "Nowak", Email = "anna.nowak@example.com", Haslo = "hashed_password" }
+                new User { UserId = 1, FirstName = "Jan", LastName = "Kowalski", Email = "jan.kowalski@example.com", Password = "hashed_password" },
+                new User { UserId = 2, FirstName = "Anna", LastName = "Nowak", Email = "anna.nowak@example.com", Password = "hashed_password" }
             );
         }
     }

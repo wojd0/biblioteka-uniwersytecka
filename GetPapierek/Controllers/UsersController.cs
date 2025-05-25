@@ -22,7 +22,7 @@ namespace GetPapierek.Controllers
             // For security, don't return passwords in the API response
             foreach (var user in users)
             {
-                user.Haslo = null;
+                user.Password = null;
             }
             return Ok(users);
         }
@@ -37,7 +37,7 @@ namespace GetPapierek.Controllers
             }
 
             // For security, don't return password in the API response
-            user.Haslo = null;
+            user.Password = null;
             return Ok(user);
         }
 
@@ -59,14 +59,14 @@ namespace GetPapierek.Controllers
             var addedUser = await _uzytkownikRepository.AddAsync(user);
 
             // For security, don't return password in the API response
-            addedUser.Haslo = null;
-            return CreatedAtAction(nameof(GetById), new { id = addedUser.IdUzytkownika }, addedUser);
+            addedUser.Password = null;
+            return CreatedAtAction(nameof(GetById), new { id = addedUser.UserId }, addedUser);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] User user)
         {
-            if (user == null || id != user.IdUzytkownika)
+            if (user == null || id != user.UserId)
             {
                 return BadRequest("Dane użytkownika są nieprawidłowe.");
             }
@@ -78,7 +78,7 @@ namespace GetPapierek.Controllers
             }
 
             // For security, don't return password in the API response
-            updatedUser.Haslo = null;
+            updatedUser.Password = null;
             return Ok(updatedUser);
         }
 
@@ -104,7 +104,7 @@ namespace GetPapierek.Controllers
 
             // In a real application, we would generate a JWT token here
             // but for simplicity we'll just return the user without the password
-            user.Haslo = null;
+            user.Password = null;
             return Ok(new { message = "Zalogowano pomyślnie", user });
         }
     }

@@ -17,36 +17,36 @@ namespace GetPapierek.Repositories
         public async Task<List<Rental>> GetAllAsync()
         {
             return await _context.Wypozyczenia
-                .Include(w => w.Uzytkownik)
-                .Include(w => w.Ksiazka)
-                .ThenInclude(k => k.Kategoria)
+                .Include(w => w.User)
+                .Include(w => w.Book)
+                .ThenInclude(k => k.Category)
                 .ToListAsync();
         }
 
         public async Task<List<Rental>> GetByUserIdAsync(int userId)
         {
             return await _context.Wypozyczenia
-                .Include(w => w.Uzytkownik)
-                .Include(w => w.Ksiazka)
-                .ThenInclude(k => k.Kategoria)
-                .Where(w => w.IdUzytkownika == userId)
+                .Include(w => w.User)
+                .Include(w => w.Book)
+                .ThenInclude(k => k.Category)
+                .Where(w => w.UserId == userId)
                 .ToListAsync();
         }
 
         public async Task<Rental> GetByIdAsync(int id)
         {
             return await _context.Wypozyczenia
-                .Include(w => w.Uzytkownik)
-                .Include(w => w.Ksiazka)
-                .ThenInclude(k => k.Kategoria)
-                .FirstOrDefaultAsync(w => w.IdWypozyczenia == id);
+                .Include(w => w.User)
+                .Include(w => w.Book)
+                .ThenInclude(k => k.Category)
+                .FirstOrDefaultAsync(w => w.RentalId == id);
         }
 
         public async Task<Rental> AddAsync(Rental wypozyczenie)
         {
             // Set default values for new loan
-            wypozyczenie.DataWypozyczenia = DateTime.Now;
-            wypozyczenie.Status = RentalStatus.Wypozyczona;
+            wypozyczenie.RentalDate = DateTime.Now;
+            wypozyczenie.Status = RentalStatus.Rented;
 
             await _context.Wypozyczenia.AddAsync(wypozyczenie);
             await _context.SaveChangesAsync();
@@ -55,7 +55,7 @@ namespace GetPapierek.Repositories
 
         public async Task<Rental> UpdateAsync(Rental wypozyczenie)
         {
-            var existingWypozyczenie = await _context.Wypozyczenia.FindAsync(wypozyczenie.IdWypozyczenia);
+            var existingWypozyczenie = await _context.Wypozyczenia.FindAsync(wypozyczenie.RentalId);
             if (existingWypozyczenie == null)
                 return null;
 
@@ -78,11 +78,11 @@ namespace GetPapierek.Repositories
         public async Task<bool> ReturnBookAsync(int id)
         {
             var wypozyczenie = await _context.Wypozyczenia.FindAsync(id);
-            if (wypozyczenie == null || wypozyczenie.Status == RentalStatus.Zwrocona)
+            if (wypozyczenie == null || wypozyczenie.Status == RentalStatus.Returned)
                 return false;
 
-            wypozyczenie.Status = RentalStatus.Zwrocona;
-            wypozyczenie.DataZwrotu = DateTime.Now;
+            wypozyczenie.Status = RentalStatus.Returned;
+            wypozyczenie.ReturnDate = DateTime.Now;
             await _context.SaveChangesAsync();
             return true;
         }
