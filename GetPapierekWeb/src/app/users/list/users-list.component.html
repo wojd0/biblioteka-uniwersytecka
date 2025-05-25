@@ -27,4 +27,7 @@
     {{ searchTerm.trim() ? 'Brak użytkowników spełniających kryteria wyszukiwania' : 'Brak
     użytkowników do wyświetlenia' }}
   </div>
+  <button mat-raised-button color="primary" (click)="openAddDialog()" style="margin-top: 1rem;">
+    <mat-icon>add</mat-icon> Dodaj użytkownika
+  </button>
 </div>

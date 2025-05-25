@@ -39,4 +39,7 @@
     {{ searchTerm.trim() ? 'Brak książek spełniających kryteria wyszukiwania' : 'Brak książek do
     wyświetlenia' }}
   </div>
+  <button mat-raised-button color="primary" (click)="openAddDialog()" style="margin-top: 1rem;">
+    <mat-icon>add</mat-icon> Dodaj książkę
+  </button>
 </div>

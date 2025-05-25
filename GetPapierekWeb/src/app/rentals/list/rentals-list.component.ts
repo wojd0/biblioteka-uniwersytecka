@@ -69,4 +69,21 @@ export class RentalsListComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+
+  openAddDialog() {
+    const bookTitle = window.prompt('Podaj tytuł książki:');
+    if (!bookTitle) return;
+    const userName = window.prompt('Podaj imię i nazwisko użytkownika:');
+    if (!userName) return;
+    const status = window.prompt('Podaj status wypożyczenia:');
+    if (!status) return;
+    const newRental: Rental = {
+      book: { title: bookTitle } as any,
+      user: { name: userName } as any,
+      status,
+      // Add other required fields as needed
+    } as Rental;
+    this.rentals.push(newRental);
+    this.applyFilter();
+  }
 }

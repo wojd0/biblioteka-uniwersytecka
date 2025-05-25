@@ -73,4 +73,21 @@ export class UsersListComponent implements OnInit {
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
+
+  openAddDialog() {
+    const name = window.prompt('Podaj imię i nazwisko użytkownika:');
+    if (!name) return;
+    const email = window.prompt('Podaj email użytkownika:');
+    if (!email) return;
+    const role = window.prompt('Podaj rolę użytkownika:');
+    if (!role) return;
+    const newUser: User = {
+      userId: Math.max(0, ...this.users.map((u) => u.userId || 0)) + 1,
+      name,
+      email,
+      role,
+    };
+    this.users.push(newUser);
+    this.applyFilter();
+  }
 }

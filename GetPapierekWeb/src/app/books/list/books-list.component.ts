@@ -9,6 +9,8 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
+import { MatDialogModule, MatDialog } from '@angular/material/dialog';
+import { AddBookDialogComponent } from './add-book-dialog.component';
 
 @Component({
   selector: 'app-books-list',
@@ -24,11 +26,13 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    MatDialogModule,
     SearchBoxComponent,
   ],
 })
 export class BooksListComponent implements OnInit {
   private booksService = inject(BooksService);
+  private dialog = inject(MatDialog);
 
   books: Book[] = [];
   filteredBooks: Book[] = [];
@@ -81,5 +85,24 @@ export class BooksListComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  openAddDialog() {
+    const dialogRef = this.dialog.open(AddBookDialogComponent, {
+      width: '400px',
+    });
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const newBook: Book = {
+          title: result.title,
+          author: result.author,
+          publicationYear: Number(result.publicationYear),
+          category: result.category ? { name: result.category } : undefined,
+          shelf: result.shelf || '',
+        } as Book;
+        this.books.push(newBook);
+        this.applyFilter();
+      }
+    });
   }
 }
