@@ -97,7 +97,10 @@ export class BooksListComponent implements OnInit {
           title: result.title,
           author: result.author,
           publicationYear: Number(result.publicationYear),
-          category: result.category ? { name: result.category } : undefined,
+          category:
+            result.category && typeof result.category === 'object'
+              ? result.category
+              : { name: result.category || '' },
           shelf: result.shelf || '',
         } as Book;
         this.books.push(newBook);

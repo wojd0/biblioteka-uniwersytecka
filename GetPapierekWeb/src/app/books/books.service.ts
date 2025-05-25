@@ -31,4 +31,8 @@ export class BooksService {
   getBook(id: number): Observable<Book> {
     return this.http.get<Book>(`${this.apiUrl}/${id}`);
   }
+
+  addBook(book: Partial<Book>): Observable<Book> {
+    return this.http.post<Book>(this.apiUrl, book);
+  }
 }

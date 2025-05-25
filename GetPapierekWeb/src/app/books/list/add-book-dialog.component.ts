@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { BooksService } from '../books.service';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-add-book-dialog',
@@ -43,6 +45,8 @@ import { MatButtonModule } from '@angular/material/button';
           <mat-label>Półka</mat-label>
           <input matInput [(ngModel)]="book.shelf" name="shelf" />
         </mat-form-field>
+        <div *ngIf="loading">Dodawanie książki...</div>
+        <div *ngIf="error" style="color: red">{{ error }}</div>
       </form>
     </div>
     <div mat-dialog-actions align="end">
@@ -75,6 +79,10 @@ export class AddBookDialogComponent {
     shelf: '',
   };
 
+  private booksService = inject(BooksService);
+  loading = false;
+  error: string | null = null;
+
   constructor(
     public dialogRef: MatDialogRef<AddBookDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
@@ -85,6 +93,25 @@ export class AddBookDialogComponent {
   }
 
   onAdd() {
-    this.dialogRef.close(this.book);
+    this.loading = true;
+    this.error = null;
+    // Prepare book object for API
+    const payload: any = {
+      title: this.book.title,
+      author: this.book.author,
+      publicationYear: Number(this.book.publicationYear),
+      shelf: this.book.shelf,
+      category: { name: this.book.category || '' }, // Always send category
+    };
+    this.booksService.addBook(payload).subscribe({
+      next: (createdBook) => {
+        this.loading = false;
+        this.dialogRef.close(createdBook);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = 'Błąd podczas dodawania książki.';
+      },
+    });
   }
 }
