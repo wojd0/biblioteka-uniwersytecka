@@ -1,6 +1,6 @@
-namespace Biblioteka.Modele
+namespace GetPapierek.Models
 {
-    public class Uzytkownik
+    public class User
     {
         public int IdUzytkownika { get; set; }
         public string Imie { get; set; }

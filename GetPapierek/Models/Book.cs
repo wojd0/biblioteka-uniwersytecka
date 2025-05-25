@@ -1,6 +1,6 @@
-namespace Biblioteka.Modele
+namespace GetPapierek.Models
 {
-    public class ksiazka
+    public class Book
     {
         public int IdKsiazki { get; set; }
         public string Tytul { get; set; }
@@ -9,6 +9,6 @@ namespace Biblioteka.Modele
         public int? RokWydania { get; set; }
 
         public int? IdKategorii { get; set; }
-        public KategoriaKsiazki Kategoria { get; set; }
+        public Category Kategoria { get; set; }
     }
 }
