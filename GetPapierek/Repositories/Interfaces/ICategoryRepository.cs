@@ -6,8 +6,8 @@ namespace GetPapierek.Repositories.Interfaces
     {
         Task<List<Category>> GetAllAsync();
         Task<Category> GetByIdAsync(int id);
-        Task<Category> AddAsync(Category kategoria);
-        Task<Category> UpdateAsync(Category kategoria);
+        Task<Category> AddAsync(Category category);
+        Task<Category> UpdateAsync(Category category);
         Task<bool> DeleteAsync(int id);
     }
 }

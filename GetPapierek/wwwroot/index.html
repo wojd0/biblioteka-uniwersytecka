@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>GetPapierek - Biblioteka Uniwersytecka</title>
+    <title>GetPapierek - University Library</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -109,85 +109,86 @@
 <body>
     <header>
         <h1>GetPapierek</h1>
-        <p class="subtitle">API Biblioteki Uniwersyteckiej</p>
+        <p class="subtitle">University Library API</p>
     </header>
 
     <div class="container">
         <div class="endpoints">
-            <h2>Dostępne Endpointy API</h2>
+            <h2>Available API Endpoints</h2>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Ksiazki</span>
-                <div class="description">Pobierz listę wszystkich książek</div>
+                <span class="path">/api/Books</span>
+                <div class="description">Get list of all books</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Ksiazki/{id}</span>
-                <div class="description">Pobierz szczegóły książki o podanym ID</div>
+                <span class="path">/api/Books/{id}</span>
+                <div class="description">Get details of a book by ID</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Ksiazki/search?query={zapytanie}</span>
-                <div class="description">Wyszukaj książki zawierające podaną frazę w tytule, autorze
-                    lub kategorii</div>
+                <span class="path">/api/Books/search?query={query}</span>
+                <div class="description">Search for books containing the provided phrase in title,
+                    author
+                    or category</div>
             </div>
 
             <div class="endpoint">
                 <span class="method post">POST</span>
-                <span class="path">/api/Ksiazki</span>
-                <div class="description">Dodaj nową książkę</div>
+                <span class="path">/api/Books</span>
+                <div class="description">Add a new book</div>
             </div>
 
             <div class="endpoint">
                 <span class="method put">PUT</span>
-                <span class="path">/api/Ksiazki/{id}</span>
-                <div class="description">Aktualizuj istniejącą książkę</div>
+                <span class="path">/api/Books/{id}</span>
+                <div class="description">Update an existing book</div>
             </div>
 
             <div class="endpoint">
                 <span class="method delete">DELETE</span>
-                <span class="path">/api/Ksiazki/{id}</span>
-                <div class="description">Usuń książkę</div>
+                <span class="path">/api/Books/{id}</span>
+                <div class="description">Delete a book</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Kategorie</span>
-                <div class="description">Pobierz wszystkie kategorie książek</div>
+                <span class="path">/api/Category</span>
+                <div class="description">Get all book categories</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Wypozyczenia</span>
-                <div class="description">Pobierz wszystkie wypożyczenia</div>
+                <span class="path">/api/Rental</span>
+                <div class="description">Get all rentals</div>
             </div>
 
             <div class="endpoint">
                 <span class="method post">POST</span>
-                <span class="path">/api/Wypozyczenia/{id}/zwrot</span>
-                <div class="description">Oznacz książkę jako zwróconą</div>
+                <span class="path">/api/Rental/{id}/return</span>
+                <div class="description">Mark book as returned</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
-                <span class="path">/api/Search?query={zapytanie}</span>
-                <div class="description">Wyszukiwanie proste</div>
+                <span class="path">/api/Search?query={query}</span>
+                <div class="description">Simple search</div>
             </div>
 
             <div class="endpoint">
                 <span class="method get">GET</span>
                 <span
-                    class="path">/api/Search/advanced?title={tytul}&author={autor}&categoryId={idKategorii}&yearFrom={rokOd}&yearTo={rokDo}</span>
-                <div class="description">Wyszukiwanie zaawansowane</div>
+                    class="path">/api/Search/advanced?title={title}&author={author}&categoryId={categoryId}&yearFrom={yearFrom}&yearTo={yearTo}</span>
+                <div class="description">Advanced search</div>
             </div>
         </div>
     </div>
 
     <footer>
-        &copy; 2025 GetPapierek - Biblioteka Uniwersytecka
+        &copy; 2025 GetPapierek - University Library
     </footer>
 </body>
 

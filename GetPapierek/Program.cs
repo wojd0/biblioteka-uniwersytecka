@@ -10,8 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 // Register DbContext with in-memory database for prototyping
-builder.Services.AddDbContext<BibliotekDbContext>(options =>
-    options.UseInMemoryDatabase("BibliotekDB"));
+builder.Services.AddDbContext<LibraryDbContext>(options =>
+    options.UseInMemoryDatabase("LibraryDB"));
 
 // Register repositories
 builder.Services.AddScoped<IBookRepository, BookRepository>();

@@ -7,21 +7,21 @@ namespace GetPapierek.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        private readonly BibliotekDbContext _context;
+        private readonly LibraryDbContext _context;
 
-        public BookRepository(BibliotekDbContext context)
+        public BookRepository(LibraryDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Book>> GetAllAsync()
         {
-            return await _context.Ksiazki.Include(k => k.Category).ToListAsync();
+            return await _context.Books.Include(k => k.Category).ToListAsync();
         }
 
         public async Task<Book> GetByIdAsync(int id)
         {
-            return await _context.Ksiazki
+            return await _context.Books
                 .Include(k => k.Category)
                 .FirstOrDefaultAsync(k => k.BookId == id);
         }
@@ -32,39 +32,39 @@ namespace GetPapierek.Repositories
                 return await GetAllAsync();
 
             query = query.ToLower();
-            return await _context.Ksiazki
+            return await _context.Books
                 .Include(k => k.Category)
                 .Where(k => k.Title.ToLower().Contains(query) ||
                             k.Author.ToLower().Contains(query) ||
-                            k.Category.NazwaKategorii.ToLower().Contains(query))
+                            k.Category.Name.ToLower().Contains(query))
                 .ToListAsync();
         }
 
-        public async Task<Book> AddAsync(Book ksiazka)
+        public async Task<Book> AddAsync(Book book)
         {
-            await _context.Ksiazki.AddAsync(ksiazka);
+            await _context.Books.AddAsync(book);
             await _context.SaveChangesAsync();
-            return ksiazka;
+            return book;
         }
 
-        public async Task<Book> UpdateAsync(Book ksiazka)
+        public async Task<Book> UpdateAsync(Book book)
         {
-            var existingBook = await _context.Ksiazki.FindAsync(ksiazka.BookId);
+            var existingBook = await _context.Books.FindAsync(book.BookId);
             if (existingBook == null)
                 return null;
 
-            _context.Entry(existingBook).CurrentValues.SetValues(ksiazka);
+            _context.Entry(existingBook).CurrentValues.SetValues(book);
             await _context.SaveChangesAsync();
             return existingBook;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var book = await _context.Ksiazki.FindAsync(id);
+            var book = await _context.Books.FindAsync(id);
             if (book == null)
                 return false;
 
-            _context.Ksiazki.Remove(book);
+            _context.Books.Remove(book);
             await _context.SaveChangesAsync();
             return true;
         }

@@ -8,17 +8,17 @@ namespace GetPapierek.Controllers
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUserRepository _uzytkownikRepository;
+        private readonly IUserRepository _userRepository;
 
-        public UsersController(IUserRepository uzytkownikRepository)
+        public UsersController(IUserRepository userRepository)
         {
-            _uzytkownikRepository = uzytkownikRepository;
+            _userRepository = userRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var users = await _uzytkownikRepository.GetAllAsync();
+            var users = await _userRepository.GetAllAsync();
             // For security, don't return passwords in the API response
             foreach (var user in users)
             {
@@ -30,7 +30,7 @@ namespace GetPapierek.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var user = await _uzytkownikRepository.GetByIdAsync(id);
+            var user = await _userRepository.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound($"Użytkownik o ID {id} nie został znaleziony.");
@@ -50,13 +50,13 @@ namespace GetPapierek.Controllers
             }
 
             // Check if email already exists
-            var existingUser = await _uzytkownikRepository.GetByEmailAsync(user.Email);
+            var existingUser = await _userRepository.GetByEmailAsync(user.Email);
             if (existingUser != null)
             {
                 return BadRequest("Użytkownik z tym adresem email już istnieje.");
             }
 
-            var addedUser = await _uzytkownikRepository.AddAsync(user);
+            var addedUser = await _userRepository.AddAsync(user);
 
             // For security, don't return password in the API response
             addedUser.Password = null;
@@ -71,7 +71,7 @@ namespace GetPapierek.Controllers
                 return BadRequest("Dane użytkownika są nieprawidłowe.");
             }
 
-            var updatedUser = await _uzytkownikRepository.UpdateAsync(user);
+            var updatedUser = await _userRepository.UpdateAsync(user);
             if (updatedUser == null)
             {
                 return NotFound($"Użytkownik o ID {id} nie został znaleziony.");
@@ -85,7 +85,7 @@ namespace GetPapierek.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _uzytkownikRepository.DeleteAsync(id);
+            var result = await _userRepository.DeleteAsync(id);
             if (!result)
             {
                 return NotFound($"Użytkownik o ID {id} nie został znaleziony.");
@@ -96,7 +96,7 @@ namespace GetPapierek.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginModel model)
         {
-            var user = await _uzytkownikRepository.AuthenticateAsync(model.Email, model.Haslo);
+            var user = await _userRepository.AuthenticateAsync(model.Email, model.Haslo);
             if (user == null)
             {
                 return Unauthorized("Nieprawidłowy email lub hasło.");

@@ -7,48 +7,48 @@ namespace GetPapierek.Repositories
 {
     public class CategoryRepository : ICategoryRepository
     {
-        private readonly BibliotekDbContext _context;
+        private readonly LibraryDbContext _context;
 
-        public CategoryRepository(BibliotekDbContext context)
+        public CategoryRepository(LibraryDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Category>> GetAllAsync()
         {
-            return await _context.KategorieKsiazek.ToListAsync();
+            return await _context.Categories.ToListAsync();
         }
 
         public async Task<Category> GetByIdAsync(int id)
         {
-            return await _context.KategorieKsiazek.FindAsync(id);
+            return await _context.Categories.FindAsync(id);
         }
 
-        public async Task<Category> AddAsync(Category kategoria)
+        public async Task<Category> AddAsync(Category category)
         {
-            await _context.KategorieKsiazek.AddAsync(kategoria);
+            await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
-            return kategoria;
+            return category;
         }
 
-        public async Task<Category> UpdateAsync(Category kategoria)
+        public async Task<Category> UpdateAsync(Category category)
         {
-            var existingKategoria = await _context.KategorieKsiazek.FindAsync(kategoria.IdKategorii);
-            if (existingKategoria == null)
+            var existingCategory = await _context.Categories.FindAsync(category.Id);
+            if (existingCategory == null)
                 return null;
 
-            _context.Entry(existingKategoria).CurrentValues.SetValues(kategoria);
+            _context.Entry(existingCategory).CurrentValues.SetValues(category);
             await _context.SaveChangesAsync();
-            return existingKategoria;
+            return existingCategory;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var kategoria = await _context.KategorieKsiazek.FindAsync(id);
-            if (kategoria == null)
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
                 return false;
 
-            _context.KategorieKsiazek.Remove(kategoria);
+            _context.Categories.Remove(category);
             await _context.SaveChangesAsync();
             return true;
         }

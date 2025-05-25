@@ -7,16 +7,16 @@ namespace GetPapierek.Repositories
 {
     public class RentalRepository : IRentalRepository
     {
-        private readonly BibliotekDbContext _context;
+        private readonly LibraryDbContext _context;
 
-        public RentalRepository(BibliotekDbContext context)
+        public RentalRepository(LibraryDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<Rental>> GetAllAsync()
         {
-            return await _context.Wypozyczenia
+            return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
                 .ThenInclude(k => k.Category)
@@ -25,7 +25,7 @@ namespace GetPapierek.Repositories
 
         public async Task<List<Rental>> GetByUserIdAsync(int userId)
         {
-            return await _context.Wypozyczenia
+            return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
                 .ThenInclude(k => k.Category)
@@ -35,54 +35,54 @@ namespace GetPapierek.Repositories
 
         public async Task<Rental> GetByIdAsync(int id)
         {
-            return await _context.Wypozyczenia
+            return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
                 .ThenInclude(k => k.Category)
                 .FirstOrDefaultAsync(w => w.RentalId == id);
         }
 
-        public async Task<Rental> AddAsync(Rental wypozyczenie)
+        public async Task<Rental> AddAsync(Rental rental)
         {
             // Set default values for new loan
-            wypozyczenie.RentalDate = DateTime.Now;
-            wypozyczenie.Status = RentalStatus.Rented;
+            rental.RentalDate = DateTime.Now;
+            rental.Status = RentalStatus.Rented;
 
-            await _context.Wypozyczenia.AddAsync(wypozyczenie);
+            await _context.Rentals.AddAsync(rental);
             await _context.SaveChangesAsync();
-            return wypozyczenie;
+            return rental;
         }
 
-        public async Task<Rental> UpdateAsync(Rental wypozyczenie)
+        public async Task<Rental> UpdateAsync(Rental rental)
         {
-            var existingWypozyczenie = await _context.Wypozyczenia.FindAsync(wypozyczenie.RentalId);
-            if (existingWypozyczenie == null)
+            var existingRental = await _context.Rentals.FindAsync(rental.RentalId);
+            if (existingRental == null)
                 return null;
 
-            _context.Entry(existingWypozyczenie).CurrentValues.SetValues(wypozyczenie);
+            _context.Entry(existingRental).CurrentValues.SetValues(rental);
             await _context.SaveChangesAsync();
-            return existingWypozyczenie;
+            return existingRental;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var wypozyczenie = await _context.Wypozyczenia.FindAsync(id);
-            if (wypozyczenie == null)
+            var rental = await _context.Rentals.FindAsync(id);
+            if (rental == null)
                 return false;
 
-            _context.Wypozyczenia.Remove(wypozyczenie);
+            _context.Rentals.Remove(rental);
             await _context.SaveChangesAsync();
             return true;
         }
 
         public async Task<bool> ReturnBookAsync(int id)
         {
-            var wypozyczenie = await _context.Wypozyczenia.FindAsync(id);
-            if (wypozyczenie == null || wypozyczenie.Status == RentalStatus.Returned)
+            var rental = await _context.Rentals.FindAsync(id);
+            if (rental == null || rental.Status == RentalStatus.Returned)
                 return false;
 
-            wypozyczenie.Status = RentalStatus.Returned;
-            wypozyczenie.ReturnDate = DateTime.Now;
+            rental.Status = RentalStatus.Returned;
+            rental.ReturnDate = DateTime.Now;
             await _context.SaveChangesAsync();
             return true;
         }

@@ -7,69 +7,69 @@ namespace GetPapierek.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly BibliotekDbContext _context;
+        private readonly LibraryDbContext _context;
 
-        public UserRepository(BibliotekDbContext context)
+        public UserRepository(LibraryDbContext context)
         {
             _context = context;
         }
 
         public async Task<List<User>> GetAllAsync()
         {
-            return await _context.Uzytkownicy.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         public async Task<User> GetByIdAsync(int id)
         {
-            return await _context.Uzytkownicy.FindAsync(id);
+            return await _context.Users.FindAsync(id);
         }
 
         public async Task<User> GetByEmailAsync(string email)
         {
-            return await _context.Uzytkownicy.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
-        public async Task<User> AddAsync(User uzytkownik)
+        public async Task<User> AddAsync(User user)
         {
             // In a real application, we would hash the password here
             // using something like BCrypt before saving
 
-            await _context.Uzytkownicy.AddAsync(uzytkownik);
+            await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
-            return uzytkownik;
+            return user;
         }
 
-        public async Task<User> UpdateAsync(User uzytkownik)
+        public async Task<User> UpdateAsync(User user)
         {
-            var existingUser = await _context.Uzytkownicy.FindAsync(uzytkownik.UserId);
+            var existingUser = await _context.Users.FindAsync(user.UserId);
             if (existingUser == null)
                 return null;
 
             // In a real application, check if password changed and hash it if needed
 
-            _context.Entry(existingUser).CurrentValues.SetValues(uzytkownik);
+            _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
             return existingUser;
         }
 
         public async Task<bool> DeleteAsync(int id)
         {
-            var uzytkownik = await _context.Uzytkownicy.FindAsync(id);
-            if (uzytkownik == null)
+            var user = await _context.Users.FindAsync(id);
+            if (user == null)
                 return false;
 
-            _context.Uzytkownicy.Remove(uzytkownik);
+            _context.Users.Remove(user);
             await _context.SaveChangesAsync();
             return true;
         }
 
-        public async Task<User> AuthenticateAsync(string email, string haslo)
+        public async Task<User> AuthenticateAsync(string email, string password)
         {
             // In a real application, we would hash the password and compare hashes
-            var uzytkownik = await _context.Uzytkownicy
-                .FirstOrDefaultAsync(u => u.Email == email && u.Password == haslo);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 
-            return uzytkownik;
+            return user;
         }
     }
 }

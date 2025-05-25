@@ -8,15 +8,15 @@ namespace GetPapierek.Controllers
     [Route("api/[controller]")]
     public class SearchController : ControllerBase
     {
-        private readonly IBookRepository _ksiazkaRepository;
-        private readonly ICategoryRepository _kategoriaRepository;
+        private readonly IBookRepository _bookRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
         public SearchController(
-            IBookRepository ksiazkaRepository,
-            ICategoryRepository kategoriaRepository)
+            IBookRepository bookRepository,
+            ICategoryRepository categoryRepository)
         {
-            _ksiazkaRepository = ksiazkaRepository;
-            _kategoriaRepository = kategoriaRepository;
+            _bookRepository = bookRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
@@ -24,24 +24,24 @@ namespace GetPapierek.Controllers
         {
             if (string.IsNullOrWhiteSpace(query))
             {
-                return BadRequest("Zapytanie wyszukiwania nie może być puste.");
+                return BadRequest("Search query cannot be empty.");
             }
 
-            var books = await _ksiazkaRepository.SearchAsync(query);
+            var books = await _bookRepository.SearchAsync(query);
 
             // Group results by category for better organization
             var results = books
-                .GroupBy(b => b.Category?.NazwaKategorii ?? "Bez kategorii")
+                .GroupBy(b => b.Category?.Name ?? "Uncategorized")
                 .Select(g => new
                 {
-                    Kategoria = g.Key,
-                    Ksiazki = g.Select(b => new
+                    Category = g.Key,
+                    Books = g.Select(b => new
                     {
-                        b.IdKsiazki,
-                        b.Tytul,
-                        b.Autor,
-                        b.RokWydania,
-                        b.Pulka
+                        b.BookId,
+                        b.Title,
+                        b.Author,
+                        b.PublicationYear,
+                        b.Shelf
                     }).ToList()
                 })
                 .ToList();
@@ -63,7 +63,7 @@ namespace GetPapierek.Controllers
             [FromQuery] int? yearTo = null)
         {
             // Get all books first
-            var allBooks = await _ksiazkaRepository.GetAllAsync();
+            var allBooks = await _bookRepository.GetAllAsync();
 
             // Apply filters
             var filteredBooks = allBooks.AsQueryable();

@@ -8,27 +8,27 @@ namespace GetPapierek.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepository _kategoriaRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public CategoryController(ICategoryRepository kategoriaRepository)
+        public CategoryController(ICategoryRepository categoryRepository)
         {
-            _kategoriaRepository = kategoriaRepository;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            var categories = await _kategoriaRepository.GetAllAsync();
+            var categories = await _categoryRepository.GetAllAsync();
             return Ok(categories);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            var category = await _kategoriaRepository.GetByIdAsync(id);
+            var category = await _categoryRepository.GetByIdAsync(id);
             if (category == null)
             {
-                return NotFound($"Kategoria o ID {id} nie została znaleziona.");
+                return NotFound($"Category with ID {id} was not found.");
             }
             return Ok(category);
         }
@@ -38,25 +38,25 @@ namespace GetPapierek.Controllers
         {
             if (category == null)
             {
-                return BadRequest("Dane kategorii są nieprawidłowe.");
+                return BadRequest("Category data is invalid.");
             }
 
-            var addedCategory = await _kategoriaRepository.AddAsync(category);
-            return CreatedAtAction(nameof(GetById), new { id = addedCategory.IdKategorii }, addedCategory);
+            var addedCategory = await _categoryRepository.AddAsync(category);
+            return CreatedAtAction(nameof(GetById), new { id = addedCategory.Id }, addedCategory);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Category category)
         {
-            if (category == null || id != category.IdKategorii)
+            if (category == null || id != category.Id)
             {
-                return BadRequest("Dane kategorii są nieprawidłowe.");
+                return BadRequest("Category data is invalid.");
             }
 
-            var updatedCategory = await _kategoriaRepository.UpdateAsync(category);
+            var updatedCategory = await _categoryRepository.UpdateAsync(category);
             if (updatedCategory == null)
             {
-                return NotFound($"Kategoria o ID {id} nie została znaleziona.");
+                return NotFound($"Category with ID {id} was not found.");
             }
             return Ok(updatedCategory);
         }
@@ -64,10 +64,10 @@ namespace GetPapierek.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _kategoriaRepository.DeleteAsync(id);
+            var result = await _categoryRepository.DeleteAsync(id);
             if (!result)
             {
-                return NotFound($"Kategoria o ID {id} nie została znaleziona.");
+                return NotFound($"Category with ID {id} was not found.");
             }
             return NoContent();
         }

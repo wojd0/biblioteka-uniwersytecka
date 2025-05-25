@@ -7,8 +7,8 @@ namespace GetPapierek.Repositories.Interfaces
         Task<List<Rental>> GetAllAsync();
         Task<List<Rental>> GetByUserIdAsync(int userId);
         Task<Rental> GetByIdAsync(int id);
-        Task<Rental> AddAsync(Rental wypozyczenie);
-        Task<Rental> UpdateAsync(Rental wypozyczenie);
+        Task<Rental> AddAsync(Rental rental);
+        Task<Rental> UpdateAsync(Rental rental);
         Task<bool> DeleteAsync(int id);
         Task<bool> ReturnBookAsync(int id);
     }
