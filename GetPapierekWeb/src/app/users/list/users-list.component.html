@@ -1,12 +1,8 @@
 <div class="users-list-container">
   <h2>Lista użytkowników</h2>
-  <mat-form-field appearance="outline" class="search-input">
-    <mat-label>Szukaj po imieniu, emailu lub roli...</mat-label>
-    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
-    <button mat-icon-button *ngIf="searchTerm" matSuffix (click)="searchTerm=''; onSearchChange()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+  <app-search-box [(value)]="searchTerm" label="Szukaj po imieniu, emailu lub roli..."
+    (valueChange)="onSearchChange()">
+  </app-search-box>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 users-table">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Imię i nazwisko</th>

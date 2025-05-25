@@ -2,14 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BooksService, Book } from '../books.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { BooksSearchComponent } from './search/books-search.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 
 @Component({
   selector: 'app-books-list',
@@ -19,14 +18,13 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    BooksSearchComponent,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    SearchBoxComponent,
   ],
 })
 export class BooksListComponent implements OnInit {

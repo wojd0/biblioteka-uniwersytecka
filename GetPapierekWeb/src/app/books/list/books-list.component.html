@@ -1,15 +1,9 @@
 <div class="books-list-container">
   <h2>Lista książek</h2>
 
-  <app-books-search></app-books-search>
-
-  <mat-form-field appearance="outline" class="search-input">
-    <mat-label>Szukaj po tytule, autorze lub kategorii...</mat-label>
-    <input matInput [(ngModel)]="searchTerm" (ngModelChange)="onSearchChange()" />
-    <button mat-icon-button *ngIf="searchTerm" matSuffix (click)="searchTerm=''; onSearchChange()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
+  <app-search-box [(value)]="searchTerm" label="Szukaj po tytule, autorze lub kategorii..."
+    (valueChange)="onSearchChange()">
+  </app-search-box>
 
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 books-table">
 

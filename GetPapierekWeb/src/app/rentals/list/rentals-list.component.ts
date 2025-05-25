@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 
 @Component({
   selector: 'app-rentals-list',
@@ -25,6 +26,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    SearchBoxComponent,
   ],
 })
 export class RentalsListComponent implements OnInit {
@@ -54,7 +56,7 @@ export class RentalsListComponent implements OnInit {
       (r) =>
         (r.book?.title?.toLowerCase().includes(term) ?? false) ||
         (r.user?.name?.toLowerCase().includes(term) ?? false) ||
-        r.status.toLowerCase().includes(term)
+        (typeof r.status === 'string' && r.status.toLowerCase().includes(term))
     );
     this.dataSource.data = this.filteredRentals;
     this.dataSource.sort = this.sort;

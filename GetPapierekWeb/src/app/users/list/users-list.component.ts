@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 
 @Component({
   selector: 'app-users-list',
@@ -25,6 +26,7 @@ import { MatSort, MatSortModule } from '@angular/material/sort';
     MatTableModule,
     MatButtonModule,
     MatSortModule,
+    SearchBoxComponent,
   ],
 })
 export class UsersListComponent implements OnInit {
