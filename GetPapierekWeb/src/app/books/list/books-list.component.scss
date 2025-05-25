@@ -1,11 +1,12 @@
 /* TODO: Add styles for books list */
 
-.books-list-container, .books-search-container {
+.books-list-container,
+.books-search-container {
   max-width: 900px;
   margin: 2rem auto;
   background: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
   padding: 2rem;
 }
 
@@ -18,21 +19,28 @@
   border-radius: 4px;
 }
 
-.books-table, .users-table, .rentals-table {
+.books-table,
+.users-table,
+.rentals-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
 
-.books-table th, .books-table td,
-.users-table th, .users-table td,
-.rentals-table th, .rentals-table td {
+.books-table th,
+.books-table td,
+.users-table th,
+.users-table td,
+.rentals-table th,
+.rentals-table td {
   border: 1px solid #eee;
   padding: 0.5rem 0.75rem;
   text-align: left;
 }
 
-.books-table th, .users-table th, .rentals-table th {
+.books-table th,
+.users-table th,
+.rentals-table th {
   background: #f5f5f5;
 }
 
