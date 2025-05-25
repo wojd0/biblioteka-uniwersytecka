@@ -1,2 +1,21 @@
-<!-- TODO: Replace with actual users list UI -->
-<p>Users list works!</p>
+<div class="users-list-container">
+    <h2>Lista użytkowników</h2>
+    <input type="text" placeholder="Szukaj po imieniu, emailu lub roli..." [(ngModel)]="searchTerm"
+        (ngModelChange)="onSearchChange()" class="search-input" />
+    <table class="users-table">
+        <thead>
+            <tr>
+                <th>Imię i nazwisko</th>
+                <th>Email</th>
+                <th>Rola</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of filteredUsers">
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.role }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
