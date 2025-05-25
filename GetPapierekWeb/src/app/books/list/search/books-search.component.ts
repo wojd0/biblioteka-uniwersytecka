@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SearchService, SearchResult } from './search.service';
+import { SearchService, SearchResult } from '../../search.service';
 
 @Component({
   selector: 'app-books-search',

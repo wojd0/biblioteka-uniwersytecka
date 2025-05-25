@@ -5,7 +5,7 @@ export const routes: Routes = [
     path: 'ksiazki',
     title: 'Lista książek',
     loadComponent: () =>
-      import('./books-list/books-list.component').then(
+      import('./books/list/books-list.component').then(
         (m) => m.BooksListComponent
       ),
   },
@@ -13,7 +13,7 @@ export const routes: Routes = [
     path: 'wypozyczenia',
     title: 'Lista wypożyczeń',
     loadComponent: () =>
-      import('./rentals-list/rentals-list.component').then(
+      import('./rentals/list/rentals-list.component').then(
         (m) => m.RentalsListComponent
       ),
   },
@@ -21,7 +21,7 @@ export const routes: Routes = [
     path: 'uzytkownicy',
     title: 'Lista użytkowników',
     loadComponent: () =>
-      import('./users-list/users-list.component').then(
+      import('./users/list/users-list.component').then(
         (m) => m.UsersListComponent
       ),
   },

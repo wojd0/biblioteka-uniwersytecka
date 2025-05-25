@@ -1,20 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { RentalsService, Rental } from './rentals.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { RentalsService, Rental } from '../rentals.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule, MatTableDataSource } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSort, MatSortModule } from '@angular/material/sort';
 
 @Component({
   selector: 'app-rentals-list',
   standalone: true,
   templateUrl: './rentals-list.component.html',
   styleUrls: ['./rentals-list.component.scss'],
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule,
+    MatButtonModule,
+    MatSortModule,
+  ],
 })
 export class RentalsListComponent implements OnInit {
   rentals: Rental[] = [];
   filteredRentals: Rental[] = [];
   searchTerm = '';
+  dataSource = new MatTableDataSource<Rental>([]);
+  @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private rentalsService: RentalsService) {}
 
@@ -26,6 +44,7 @@ export class RentalsListComponent implements OnInit {
     this.rentalsService.getRentals().subscribe((rentals) => {
       this.rentals = rentals;
       this.applyFilter();
+      this.dataSource.sort = this.sort;
     });
   }
 
@@ -37,9 +56,15 @@ export class RentalsListComponent implements OnInit {
         (r.user?.name?.toLowerCase().includes(term) ?? false) ||
         r.status.toLowerCase().includes(term)
     );
+    this.dataSource.data = this.filteredRentals;
+    this.dataSource.sort = this.sort;
   }
 
   onSearchChange() {
     this.applyFilter();
+  }
+
+  ngAfterViewInit() {
+    this.dataSource.sort = this.sort;
   }
 }

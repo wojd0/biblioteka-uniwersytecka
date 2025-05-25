@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Book } from '../books-list/books.service';
+import { Book } from './books.service';
 
 export interface SearchResult {
   query: string;
