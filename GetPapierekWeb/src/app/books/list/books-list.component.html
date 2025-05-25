@@ -35,4 +35,8 @@
     <tr mat-header-row *matHeaderRowDef="['title','author','year','category','shelf']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['title','author','year','category','shelf'];"></tr>
   </table>
+  <div *ngIf="filteredBooks.length === 0" style="text-align:center; padding: 1rem;">
+    {{ searchTerm.trim() ? 'Brak książek spełniających kryteria wyszukiwania' : 'Brak książek do
+    wyświetlenia' }}
+  </div>
 </div>

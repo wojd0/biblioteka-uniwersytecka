@@ -28,5 +28,12 @@
     <tr mat-header-row *matHeaderRowDef="['book','user','rentalDate','returnDate','status']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['book','user','rentalDate','returnDate','status'];">
     </tr>
+    <tr *ngIf="dataSource.data.length === 0">
+      <td colspan="6" style="text-align:center; padding: 1rem;">Brak wypożyczeń do wyświetlenia</td>
+    </tr>
   </table>
+  <div *ngIf="filteredRentals.length === 0" style="text-align:center; padding: 1rem;">
+    {{ searchTerm.trim() ? 'Brak wypożyczeń spełniających kryteria wyszukiwania' : 'Brak wypożyczeń
+    do wyświetlenia' }}
+  </div>
 </div>

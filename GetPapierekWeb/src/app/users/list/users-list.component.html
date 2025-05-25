@@ -18,5 +18,13 @@
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="['name','email','role']"></tr>
     <tr mat-row *matRowDef="let row; columns: ['name','email','role'];"></tr>
+    <tr *ngIf="dataSource.data.length === 0">
+      <td colspan="3" style="text-align:center; padding: 1rem;">Brak użytkowników do wyświetlenia
+      </td>
+    </tr>
   </table>
+  <div *ngIf="filteredUsers.length === 0" style="text-align:center; padding: 1rem;">
+    {{ searchTerm.trim() ? 'Brak użytkowników spełniających kryteria wyszukiwania' : 'Brak
+    użytkowników do wyświetlenia' }}
+  </div>
 </div>

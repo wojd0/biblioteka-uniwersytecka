@@ -51,13 +51,17 @@ export class UsersListComponent implements OnInit {
   }
 
   applyFilter() {
-    const term = this.searchTerm.toLowerCase();
-    this.filteredUsers = this.users.filter(
-      (u) =>
-        (u.name?.toLowerCase?.().includes(term) ?? false) ||
-        (u.email?.toLowerCase?.().includes(term) ?? false) ||
-        (u.role?.toLowerCase?.().includes(term) ?? false)
-    );
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredUsers = this.users;
+    } else {
+      this.filteredUsers = this.users.filter(
+        (u) =>
+          (u.name && u.name.toLowerCase().includes(term)) ||
+          (u.email && u.email.toLowerCase().includes(term)) ||
+          (u.role && u.role.toLowerCase().includes(term))
+      );
+    }
     this.dataSource.data = this.filteredUsers;
     this.dataSource.sort = this.sort;
   }
