@@ -19,12 +19,12 @@ namespace GetPapierek.Repositories
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<User> GetByIdAsync(int id)
+        public async Task<User?> GetByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
 
-        public async Task<User> GetByEmailAsync(string email)
+        public async Task<User?> GetByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
@@ -37,7 +37,7 @@ namespace GetPapierek.Repositories
             return user;
         }
 
-        public async Task<User> UpdateAsync(User user)
+        public async Task<User?> UpdateAsync(User user)
         {
             var existingUser = await _context.Users.FindAsync(user.UserId);
             if (existingUser == null)
@@ -59,7 +59,7 @@ namespace GetPapierek.Repositories
             return true;
         }
 
-        public async Task<User> AuthenticateAsync(string email, string password)
+        public async Task<User?> AuthenticateAsync(string email, string password)
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);

@@ -104,7 +104,7 @@ namespace GetPapierek.Controllers
 
     public class LoginModel
     {
-        public string Email { get; set; }
-        public string Haslo { get; set; }
+        public required string Email { get; set; }
+        public required string Haslo { get; set; }
     }
 }

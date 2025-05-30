@@ -19,7 +19,7 @@ namespace GetPapierek.Repositories
             return await _context.Books.Include(k => k.Category).ToListAsync();
         }
 
-        public async Task<Book> GetByIdAsync(int id)
+        public async Task<Book?> GetByIdAsync(int id)
         {
             return await _context.Books
                 .Include(k => k.Category)
@@ -36,7 +36,7 @@ namespace GetPapierek.Repositories
                 .Include(k => k.Category)
                 .Where(k => k.Title.ToLower().Contains(query) ||
                             k.Author.ToLower().Contains(query) ||
-                            k.Category.Name.ToLower().Contains(query))
+                            (k.Category != null && k.Category.Name.ToLower().Contains(query)))
                 .ToListAsync();
         }
 
@@ -55,7 +55,7 @@ namespace GetPapierek.Repositories
             return book;
         }
 
-        public async Task<Book> UpdateAsync(Book book)
+        public async Task<Book?> UpdateAsync(Book book)
         {
             var existingBook = await _context.Books.FindAsync(book.BookId);
             if (existingBook == null)

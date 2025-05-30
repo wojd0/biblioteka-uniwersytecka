@@ -55,8 +55,8 @@ namespace GetPapierek.Controllers
 
         [HttpGet("advanced")]
         public async Task<IActionResult> AdvancedSearch(
-            [FromQuery] string title = null,
-            [FromQuery] string author = null,
+            [FromQuery] string? title = null,
+            [FromQuery] string? author = null,
             [FromQuery] int? categoryId = null,
             [FromQuery] int? yearFrom = null,
             [FromQuery] int? yearTo = null)

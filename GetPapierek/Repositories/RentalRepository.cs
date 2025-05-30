@@ -19,7 +19,7 @@ namespace GetPapierek.Repositories
             return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
-                .ThenInclude(k => k.Category)
+                .ThenInclude(k => k!.Category)
                 .ToListAsync();
         }
 
@@ -28,17 +28,17 @@ namespace GetPapierek.Repositories
             return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
-                .ThenInclude(k => k.Category)
+                .ThenInclude(k => k!.Category)
                 .Where(w => w.UserId == userId)
                 .ToListAsync();
         }
 
-        public async Task<Rental> GetByIdAsync(int id)
+        public async Task<Rental?> GetByIdAsync(int id)
         {
             return await _context.Rentals
                 .Include(w => w.User)
                 .Include(w => w.Book)
-                .ThenInclude(k => k.Category)
+                .ThenInclude(k => k!.Category)
                 .FirstOrDefaultAsync(w => w.RentalId == id);
         }
 
@@ -68,7 +68,7 @@ namespace GetPapierek.Repositories
             return rental;
         }
 
-        public async Task<Rental> UpdateAsync(Rental rental)
+        public async Task<Rental?> UpdateAsync(Rental rental)
         {
             var existingRental = await _context.Rentals.FindAsync(rental.RentalId);
             if (existingRental == null)

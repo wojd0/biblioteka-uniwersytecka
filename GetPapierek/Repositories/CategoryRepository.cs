@@ -19,7 +19,7 @@ namespace GetPapierek.Repositories
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> GetByIdAsync(int id)
+        public async Task<Category?> GetByIdAsync(int id)
         {
             return await _context.Categories.FindAsync(id);
         }
@@ -31,7 +31,7 @@ namespace GetPapierek.Repositories
             return category;
         }
 
-        public async Task<Category> UpdateAsync(Category category)
+        public async Task<Category?> UpdateAsync(Category category)
         {
             var existingCategory = await _context.Categories.FindAsync(category.Id);
             if (existingCategory == null)
