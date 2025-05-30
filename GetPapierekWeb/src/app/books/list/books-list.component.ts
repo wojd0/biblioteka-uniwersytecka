@@ -50,7 +50,6 @@ export class BooksListComponent implements OnInit {
         case 'shelf':
           return item.shelf || '';
         default:
-          // fallback for title, author, etc.
           return (item as any)[property];
       }
     };

@@ -52,7 +52,6 @@ namespace GetPapierek.Controllers
                 return BadRequest("Dane wypożyczenia są nieprawidłowe.");
             }
 
-            // Check if the book exists
             var book = await _ksiazkaRepository.GetByIdAsync(wypozyczenie.BookId);
             if (book == null)
             {

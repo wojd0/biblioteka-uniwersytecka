@@ -6,20 +6,16 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers();
 
-// Register DbContext with SQLite
 builder.Services.AddDbContext<LibraryDbContext>(options =>
     options.UseSqlite("Data Source=library.db"));
 
-// Register repositories
 builder.Services.AddScoped<IBookRepository, BookRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IRentalRepository, RentalRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
-// Configure OpenAPI (Swagger)
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -31,7 +27,6 @@ builder.Services.AddSwaggerGen(c =>
     });
 });
 
-// Add CORS for future Angular frontend
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngularApp",
@@ -43,19 +38,16 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    // Enable Swagger
     app.UseSwagger();
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GetPapierek API v1"));
 }
 
-// Use CORS
 app.UseCors("AllowAngularApp");
 
-app.UseDefaultFiles(); // Allows serving default files like index.html
-app.UseStaticFiles(); // Enables serving static files from wwwroot
+app.UseDefaultFiles();
+app.UseStaticFiles();
 
 app.UseAuthorization();
 

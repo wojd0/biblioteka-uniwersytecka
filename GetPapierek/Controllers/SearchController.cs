@@ -29,7 +29,6 @@ namespace GetPapierek.Controllers
 
             var books = await _bookRepository.SearchAsync(query);
 
-            // Group results by category for better organization
             var results = books
                 .GroupBy(b => b.Category?.Name ?? "Uncategorized")
                 .Select(g => new
@@ -62,10 +61,8 @@ namespace GetPapierek.Controllers
             [FromQuery] int? yearFrom = null,
             [FromQuery] int? yearTo = null)
         {
-            // Get all books first
             var allBooks = await _bookRepository.GetAllAsync();
 
-            // Apply filters
             var filteredBooks = allBooks.AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(title))

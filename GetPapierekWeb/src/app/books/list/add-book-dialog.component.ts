@@ -50,13 +50,12 @@ export class AddBookDialogComponent {
   onAdd() {
     this.loading = true;
     this.error = null;
-    // Prepare book object for API
     const payload: any = {
       title: this.book.title,
       author: this.book.author,
       publicationYear: Number(this.book.publicationYear),
       shelf: this.book.shelf,
-      category: { name: this.book.category || '' }, // Always send category
+      category: { name: this.book.category || '' },
     };
     this.booksService.addBook(payload).subscribe({
       next: (createdBook) => {

@@ -81,7 +81,6 @@ export class RentalsListComponent implements OnInit {
       book: { title: bookTitle } as any,
       user: { name: userName } as any,
       status,
-      // Add other required fields as needed
     } as Rental;
     this.rentals.push(newRental);
     this.applyFilter();

@@ -42,7 +42,6 @@ namespace GetPapierek.Repositories
 
         public async Task<Book> AddAsync(Book book)
         {
-            // Attach existing category if present
             if (book.CategoryId.HasValue)
             {
                 var existingCategory = await _context.Categories.FindAsync(book.CategoryId.Value);

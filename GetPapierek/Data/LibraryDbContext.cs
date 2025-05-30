@@ -16,7 +16,6 @@ namespace GetPapierek.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure relationships
             modelBuilder.Entity<Book>()
                 .HasOne(k => k.Category)
                 .WithMany()
@@ -32,13 +31,11 @@ namespace GetPapierek.Data
                 .WithMany()
                 .HasForeignKey(w => w.BookId);
 
-            // Seed some initial data
             SeedData(modelBuilder);
         }
 
         private void SeedData(ModelBuilder modelBuilder)
         {
-            // Seed categories
             modelBuilder.Entity<Category>().HasData(
                 new Category { Id = 1, Name = "Novel" },
                 new Category { Id = 2, Name = "Science" },
@@ -46,7 +43,6 @@ namespace GetPapierek.Data
                 new Category { Id = 4, Name = "Fantasy" }
             );
 
-            // Seed books
             modelBuilder.Entity<Book>().HasData(
                 new Book { BookId = 1, Title = "Pan Tadeusz", Author = "Adam Mickiewicz", PublicationYear = 1834, CategoryId = 1, Shelf = "A1" },
                 new Book { BookId = 2, Title = "Lalka", Author = "Bolesław Prus", PublicationYear = 1890, CategoryId = 1, Shelf = "A1" },
@@ -54,7 +50,6 @@ namespace GetPapierek.Data
                 new Book { BookId = 4, Title = "Dziady", Author = "Adam Mickiewicz", PublicationYear = 1822, CategoryId = 1, Shelf = "A1" }
             );
 
-            // Seed users
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = 1, FirstName = "John", LastName = "Smith", Email = "john.smith@example.com", Password = "hashed_password" },
                 new User { UserId = 2, FirstName = "Anna", LastName = "Johnson", Email = "anna.johnson@example.com", Password = "hashed_password" }

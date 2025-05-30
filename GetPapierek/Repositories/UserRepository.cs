@@ -31,8 +31,6 @@ namespace GetPapierek.Repositories
 
         public async Task<User> AddAsync(User user)
         {
-            // In a real application, we would hash the password here
-            // using something like BCrypt before saving
 
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
@@ -44,8 +42,6 @@ namespace GetPapierek.Repositories
             var existingUser = await _context.Users.FindAsync(user.UserId);
             if (existingUser == null)
                 return null;
-
-            // In a real application, check if password changed and hash it if needed
 
             _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
@@ -65,7 +61,6 @@ namespace GetPapierek.Repositories
 
         public async Task<User> AuthenticateAsync(string email, string password)
         {
-            // In a real application, we would hash the password and compare hashes
             var user = await _context.Users
                 .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
 

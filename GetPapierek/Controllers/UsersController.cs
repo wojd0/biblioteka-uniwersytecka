@@ -19,7 +19,6 @@ namespace GetPapierek.Controllers
         public async Task<IActionResult> GetAll()
         {
             var users = await _userRepository.GetAllAsync();
-            // For security, don't return passwords in the API response
             foreach (var user in users)
             {
                 user.Password = null;
@@ -36,7 +35,6 @@ namespace GetPapierek.Controllers
                 return NotFound($"Użytkownik o ID {id} nie został znaleziony.");
             }
 
-            // For security, don't return password in the API response
             user.Password = null;
             return Ok(user);
         }
@@ -49,7 +47,6 @@ namespace GetPapierek.Controllers
                 return BadRequest("Dane użytkownika są nieprawidłowe.");
             }
 
-            // Check if email already exists
             var existingUser = await _userRepository.GetByEmailAsync(user.Email);
             if (existingUser != null)
             {
@@ -58,7 +55,6 @@ namespace GetPapierek.Controllers
 
             var addedUser = await _userRepository.AddAsync(user);
 
-            // For security, don't return password in the API response
             addedUser.Password = null;
             return CreatedAtAction(nameof(GetById), new { id = addedUser.UserId }, addedUser);
         }
@@ -77,7 +73,6 @@ namespace GetPapierek.Controllers
                 return NotFound($"Użytkownik o ID {id} nie został znaleziony.");
             }
 
-            // For security, don't return password in the API response
             updatedUser.Password = null;
             return Ok(updatedUser);
         }
@@ -102,8 +97,6 @@ namespace GetPapierek.Controllers
                 return Unauthorized("Nieprawidłowy email lub hasło.");
             }
 
-            // In a real application, we would generate a JWT token here
-            // but for simplicity we'll just return the user without the password
             user.Password = null;
             return Ok(new { message = "Zalogowano pomyślnie", user });
         }
