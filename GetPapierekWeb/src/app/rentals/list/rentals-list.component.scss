@@ -1,0 +1,73 @@
+.rentals-list-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+  padding: 2rem;
+}
+
+.rentals-list {
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.rentals-list__title {
+  font-size: 1.7rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.rentals-list__search {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.search-input {
+  width: 100%;
+  max-width: 350px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.rentals-list__table {
+  width: 100%;
+  max-width: 900px;
+  margin-bottom: 1.5rem;
+}
+
+.rentals-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.rentals-table th,
+.rentals-table td {
+  border: 1px solid #eee;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.rentals-table th {
+  background: #f5f5f5;
+}
+
+.rentals-table tr:nth-child(even) {
+  background: #fafafa;
+}
+
+.rentals-list__empty {
+  color: #888;
+  margin: 1.5rem 0;
+  text-align: center;
+}
+
+.rentals-list__add-btn {
+  margin-top: 1rem;
+}

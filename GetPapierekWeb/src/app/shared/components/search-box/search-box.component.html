@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" class="search-box">
+  <mat-label>{{ label }}</mat-label>
+  <input matInput [ngModel]="value" (ngModelChange)="valueChange.emit($event)"
+    [placeholder]="placeholder" (keyup.enter)="onEnterKey($event)" />
+  <button mat-icon-button *ngIf="value" matSuffix (click)="clearSearch()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
