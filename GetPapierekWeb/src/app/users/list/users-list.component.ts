@@ -57,9 +57,9 @@ export class UsersListComponent implements OnInit {
     } else {
       this.filteredUsers = this.users.filter(
         (u) =>
-          (u.name && u.name.toLowerCase().includes(term)) ||
-          (u.email && u.email.toLowerCase().includes(term)) ||
-          (u.role && u.role.toLowerCase().includes(term))
+          (u.firstName && u.firstName.toLowerCase().includes(term)) ||
+          (u.lastName && u.lastName.toLowerCase().includes(term)) ||
+          (u.email && u.email.toLowerCase().includes(term))
       );
     }
     this.dataSource.data = this.filteredUsers;
@@ -75,17 +75,18 @@ export class UsersListComponent implements OnInit {
   }
 
   openAddDialog() {
-    const name = window.prompt('Podaj imię i nazwisko użytkownika:');
-    if (!name) return;
+    const firstName = window.prompt('Podaj imię użytkownika:');
+    if (!firstName) return;
+    const lastName = window.prompt('Podaj nazwisko użytkownika:');
+    if (!lastName) return;
     const email = window.prompt('Podaj email użytkownika:');
     if (!email) return;
-    const role = window.prompt('Podaj rolę użytkownika:');
-    if (!role) return;
+
     const newUser: User = {
       userId: Math.max(0, ...this.users.map((u) => u.userId || 0)) + 1,
-      name,
+      firstName,
+      lastName,
       email,
-      role,
     };
     this.users.push(newUser);
     this.applyFilter();

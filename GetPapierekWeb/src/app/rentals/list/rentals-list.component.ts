@@ -55,8 +55,9 @@ export class RentalsListComponent implements OnInit {
     this.filteredRentals = this.rentals.filter(
       (r) =>
         (r.book?.title?.toLowerCase().includes(term) ?? false) ||
-        (r.user?.name?.toLowerCase().includes(term) ?? false) ||
-        (typeof r.status === 'string' && r.status.toLowerCase().includes(term))
+        (r.user && `${r.user.firstName} ${r.user.lastName}`.toLowerCase().includes(term)) ||
+        (r.status === 0 && 'wypożyczona'.includes(term)) ||
+        (r.status === 1 && 'zwrócona'.includes(term))
     );
     this.dataSource.data = this.filteredRentals;
     this.dataSource.sort = this.sort;
@@ -70,19 +71,7 @@ export class RentalsListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  openAddDialog() {
-    const bookTitle = window.prompt('Podaj tytuł książki:');
-    if (!bookTitle) return;
-    const userName = window.prompt('Podaj imię i nazwisko użytkownika:');
-    if (!userName) return;
-    const status = window.prompt('Podaj status wypożyczenia:');
-    if (!status) return;
-    const newRental: Rental = {
-      book: { title: bookTitle } as any,
-      user: { name: userName } as any,
-      status,
-    } as Rental;
-    this.rentals.push(newRental);
-    this.applyFilter();
+  getStatusText(status: number): string {
+    return status === 0 ? 'Wypożyczona' : 'Zwrócona';
   }
 }

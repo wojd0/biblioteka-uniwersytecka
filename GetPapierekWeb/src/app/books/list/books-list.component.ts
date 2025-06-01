@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { BooksService, Book } from '../books.service';
+import { UsersService, User } from '../../users/users.service';
+import { RentalsService } from '../../rentals/rentals.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -8,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { MatSelectModule } from '@angular/material/select';
+import { MatMenuModule } from '@angular/material/menu';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog.component';
@@ -27,15 +31,20 @@ import { AddBookDialogComponent } from './add-book-dialog.component';
     MatButtonModule,
     MatSortModule,
     MatDialogModule,
+    MatSelectModule,
+    MatMenuModule,
     SearchBoxComponent,
   ],
 })
 export class BooksListComponent implements OnInit {
   private booksService = inject(BooksService);
+  private usersService = inject(UsersService);
+  private rentalsService = inject(RentalsService);
   private dialog = inject(MatDialog);
 
   books: Book[] = [];
   filteredBooks: Book[] = [];
+  users: User[] = [];
   searchTerm = '';
   dataSource = new MatTableDataSource<Book>([]);
   @ViewChild(MatSort) sort!: MatSort;
@@ -57,6 +66,7 @@ export class BooksListComponent implements OnInit {
 
   ngOnInit() {
     this.loadBooks();
+    this.loadUsers();
   }
 
   loadBooks() {
@@ -64,6 +74,12 @@ export class BooksListComponent implements OnInit {
       this.books = books;
       this.applyFilter();
       this.dataSource.sort = this.sort;
+    });
+  }
+
+  loadUsers() {
+    this.usersService.getUsers().subscribe((users) => {
+      this.users = users;
     });
   }
   applyFilter() {
@@ -84,6 +100,19 @@ export class BooksListComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+  }
+
+  rentBook(bookId: number, userId: number) {
+    this.rentalsService.createRental(bookId, userId).subscribe({
+      next: (rental) => {
+        console.log('Book rented successfully:', rental);
+        alert('Książka została pomyślnie wypożyczona!');
+      },
+      error: (error) => {
+        console.error('Error renting book:', error);
+        alert('Wystąpił błąd podczas wypożyczania książki. Spróbuj ponownie.');
+      },
+    });
   }
 
   openAddDialog() {
