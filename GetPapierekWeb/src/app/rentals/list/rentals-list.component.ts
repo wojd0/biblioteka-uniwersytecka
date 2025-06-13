@@ -13,7 +13,6 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
 
 @Component({
   selector: 'app-rentals-list',
-  standalone: true,
   templateUrl: './rentals-list.component.html',
   styleUrls: ['./rentals-list.component.scss'],
   imports: [

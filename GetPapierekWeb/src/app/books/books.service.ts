@@ -1,16 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-export interface Book {
-  bookId: number;
-  title: string;
-  author: string;
-  publicationYear: number;
-  shelf: string;
-  categoryId: number;
-  category?: { id: number; name: string };
-}
+import {Book} from '../shared/models';
 
 @Injectable({ providedIn: 'root' })
 export class BooksService {

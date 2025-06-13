@@ -4,35 +4,41 @@ import {
   MAT_DIALOG_DATA,
   MatDialogModule,
 } from '@angular/material/dialog';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {CommonModule, JsonPipe} from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { BooksService } from '../books.service';
 import { inject } from '@angular/core';
+import {AddBookFormComponent} from './add-book-form/add-book-form.component';
+import {Book} from '../../shared/models';
+import {AddBookFormModel} from './add-book-form/add-book-form.model';
 
 @Component({
   selector: 'app-add-book-dialog',
   standalone: true,
   templateUrl: './add-book-dialog.component.html',
   imports: [
-    CommonModule,
+    JsonPipe,
     FormsModule,
     MatDialogModule,
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
+    AddBookFormComponent,
+    ReactiveFormsModule
   ],
 })
 export class AddBookDialogComponent {
-  book = {
+  bookControl = new FormControl<AddBookFormModel>({
     title: '',
     author: '',
-    publicationYear: null,
-    category: '',
-    shelf: '',
-  };
+    publicationYear: undefined,
+    shelf: undefined,
+    categoryId: undefined,
+    disabled: false
+  });
 
   private booksService = inject(BooksService);
   loading = false;
@@ -51,11 +57,11 @@ export class AddBookDialogComponent {
     this.loading = true;
     this.error = null;
     const payload: any = {
-      title: this.book.title,
-      author: this.book.author,
-      publicationYear: Number(this.book.publicationYear),
-      shelf: this.book.shelf,
-      category: { name: this.book.category || '' },
+      title: this.bookControl.value?.title,
+      author: this.bookControl.value?.author,
+      publicationYear: this.bookControl.value?.publicationYear,
+      shelf: this.bookControl.value?.shelf,
+      categoryId: this.bookControl.value?.categoryId,
     };
     this.booksService.addBook(payload).subscribe({
       next: (createdBook) => {

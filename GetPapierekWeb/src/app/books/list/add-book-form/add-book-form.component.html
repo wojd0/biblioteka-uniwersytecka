@@ -1,0 +1,32 @@
+<form class="add-book-dialog__form" [formGroup]="bookForm">
+  <mat-form-field class="add-book-dialog__field">
+    <mat-label>Tytuł</mat-label>
+    <input matInput formControlName="title" name="title" #title />
+    <mat-error *ngIf="title.validity.valueMissing">
+      Tytuł jest wymagany
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="add-book-dialog__field">
+    <mat-label>Autor</mat-label>
+    <input matInput formControlName="author" name="author" #author />
+    <mat-error *ngIf="author.validity.valueMissing">
+      Autor jest wymagany
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="add-book-dialog__field">
+    <mat-label>Rok wydania</mat-label>
+    <input matInput type="number" formControlName="publicationYear" name="publicationYear" #publicationYear />
+    <mat-error
+      *ngIf="publicationYear.validity.valueMissing">
+      Rok wydania jest wymagany
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="add-book-dialog__field">
+    <mat-label>Kategoria</mat-label>
+    <input matInput type="number" formControlName="categoryId" name="category" />
+  </mat-form-field>
+  <mat-form-field class="add-book-dialog__field">
+    <mat-label>Półka</mat-label>
+    <input matInput formControlName="shelf" name="shelf" />
+  </mat-form-field>
+</form>

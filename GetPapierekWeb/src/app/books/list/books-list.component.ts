@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
-import { BooksService, Book } from '../books.service';
+import { BooksService } from '../books.service';
 import { UsersService, User } from '../../users/users.service';
 import { RentalsService } from '../../rentals/rentals.service';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog.component';
+import {Book} from '../../shared/models';
 
 @Component({
   selector: 'app-books-list',
