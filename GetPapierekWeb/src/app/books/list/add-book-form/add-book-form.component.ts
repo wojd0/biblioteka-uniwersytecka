@@ -54,6 +54,10 @@ export class AddBookFormComponent implements ControlValueAccessor, Validator {
 
   private destroyRef = inject(DestroyRef);
 
+  constructor() {
+      this.bindFormEvents();
+  }
+
   validate(control: AbstractControl): ValidationErrors | null {
     return this.bookForm.errors;
   }
@@ -90,6 +94,7 @@ export class AddBookFormComponent implements ControlValueAccessor, Validator {
       if (event instanceof ValueChangeEvent) {
         this.onTouched();
         this.onChange(event.value);
+        this.onValidatorChange();
       }
     });
   }

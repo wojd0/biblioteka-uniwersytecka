@@ -15,7 +15,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog.component';
-import {Book} from '../../shared/models';
+import { Book } from '../../shared/models';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-books-list',
@@ -42,6 +43,7 @@ export class BooksListComponent implements OnInit {
   private usersService = inject(UsersService);
   private rentalsService = inject(RentalsService);
   private dialog = inject(MatDialog);
+  private snackbar = inject(MatSnackBar);
 
   books: Book[] = [];
   filteredBooks: Book[] = [];
@@ -107,11 +109,23 @@ export class BooksListComponent implements OnInit {
     this.rentalsService.createRental(bookId, userId).subscribe({
       next: (rental) => {
         console.log('Book rented successfully:', rental);
-        alert('Książka została pomyślnie wypożyczona!');
+        this.snackbar.open(
+          'Książka została pomyślnie wypożyczona!',
+          'Zamknij',
+          {
+            duration: 3000,
+          }
+        );
       },
       error: (error) => {
         console.error('Error renting book:', error);
-        alert('Wystąpił błąd podczas wypożyczania książki. Spróbuj ponownie.');
+        this.snackbar.open(
+          'Wystąpił błąd podczas wypożyczania książki. Spróbuj ponownie.',
+          'Zamknij',
+          {
+            duration: 3000,
+          }
+        );
       },
     });
   }
