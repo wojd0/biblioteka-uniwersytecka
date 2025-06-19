@@ -9,8 +9,8 @@ export interface Rental {
   rentalDate: string;
   returnDate: string | null;
   status: number; // 0 = Rented, 1 = Returned
-  book?: { 
-    title: string; 
+  book?: {
+    title: string;
     author: string;
     bookId: number;
     shelf: string;
@@ -18,9 +18,9 @@ export interface Rental {
     categoryId: number;
     category: { id: number; name: string };
   };
-  user?: { 
+  user?: {
     userId: number;
-    firstName: string; 
+    firstName: string;
     lastName: string;
     email: string;
   };
@@ -44,5 +44,9 @@ export class RentalsService {
       status: 0, // 0 = Rented
     };
     return this.http.post<Rental>(this.apiUrl, rental);
+  }
+
+  makeReturn(rentalId: number): Observable<unknown> {
+    return this.http.post<string>(`${this.apiUrl}/${rentalId}/zwrot`, undefined);
   }
 }

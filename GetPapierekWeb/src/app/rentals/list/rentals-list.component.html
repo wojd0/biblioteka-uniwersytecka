@@ -11,7 +11,8 @@
     </ng-container>
     <ng-container matColumnDef="user">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Użytkownik</th>
-      <td mat-cell *matCellDef="let rental">{{ rental.user?.firstName }} {{ rental.user?.lastName }}</td>
+      <td mat-cell *matCellDef="let rental">{{ rental.user?.firstName }} {{ rental.user?.lastName }}
+      </td>
     </ng-container>
     <ng-container matColumnDef="rentalDate">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Data wypożyczenia</th>
@@ -26,7 +27,14 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
       <td mat-cell *matCellDef="let rental">
         <span [ngClass]="rental.status === 0 ? 'status-rented' : 'status-returned'">
-          {{ rental.status === 0 ? 'Wypożyczona' : 'Zwrócona' }}
+          @if (rental.status === 0) {
+            <div class="rentals-list__return" (click)="onBookReturn(rental.rentalId)">
+              Wypożyczona
+              <br><button mat-button>Zwróć</button>
+            </div>
+          } @else {
+            Zwrócona
+          }
         </span>
       </td>
     </ng-container>

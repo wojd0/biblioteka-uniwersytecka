@@ -10,6 +10,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
+import { map, Observable, switchMap, take } from 'rxjs';
 
 @Component({
   selector: 'app-rentals-list',
@@ -38,23 +39,38 @@ export class RentalsListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
   ngOnInit() {
-    this.loadRentals();
-  }
-
-  loadRentals() {
-    this.rentalsService.getRentals().subscribe((rentals) => {
-      this.rentals = rentals;
-      this.applyFilter();
-      this.dataSource.sort = this.sort;
+    this.loadRentals().subscribe(() => {
+      this.sort.initialized.pipe(take(1)).subscribe(() => {
+        this.sort.sort({
+          id: 'rentalDate',
+          start: 'desc',
+          disableClear: false,
+        });
+      });
     });
   }
 
-  applyFilter() {
+  loadRentals(): Observable<Rental[]> {
+    return this.rentalsService.getRentals().pipe(
+      take(1),
+      map((rentals) => {
+        this.rentals = rentals;
+        this.applyFilter();
+        this.dataSource.sort = this.sort;
+        return rentals;
+      })
+    );
+  }
+
+  applyFilter(): void {
     const term = this.searchTerm.toLowerCase();
     this.filteredRentals = this.rentals.filter(
       (r) =>
         (r.book?.title?.toLowerCase().includes(term) ?? false) ||
-        (r.user && `${r.user.firstName} ${r.user.lastName}`.toLowerCase().includes(term)) ||
+        (r.user &&
+          `${r.user.firstName} ${r.user.lastName}`
+            .toLowerCase()
+            .includes(term)) ||
         (r.status === 0 && 'wypożyczona'.includes(term)) ||
         (r.status === 1 && 'zwrócona'.includes(term))
     );
@@ -62,8 +78,18 @@ export class RentalsListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  onSearchChange() {
+  onSearchChange(): void {
     this.applyFilter();
+  }
+
+  onBookReturn(rentalId: number): void {
+    this.rentalsService
+      .makeReturn(rentalId)
+      .pipe(
+        take(1),
+        switchMap(() => this.loadRentals())
+      )
+      .subscribe(() => {});
   }
 
   ngAfterViewInit() {

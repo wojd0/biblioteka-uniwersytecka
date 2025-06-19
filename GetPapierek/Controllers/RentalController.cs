@@ -97,7 +97,7 @@ namespace GetPapierek.Controllers
             {
                 return NotFound($"Wypożyczenie o ID {id} nie zostało znalezione lub książka została już zwrócona.");
             }
-            return Ok("Książka została pomyślnie zwrócona.");
+            return Ok();
         }
     }
 }
