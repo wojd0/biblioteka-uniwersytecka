@@ -1,0 +1,15 @@
+.add-book-dialog {
+  &__form {
+    padding-top: 1rem;
+  }
+
+  &__field {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  &__fieldset {
+    display: flex;
+    gap: 10px;
+  }
+}

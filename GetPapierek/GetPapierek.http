@@ -1,0 +1,6 @@
+@GetPapierek_HostAddress = http://localhost:5241
+
+GET {{GetPapierek_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

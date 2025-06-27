@@ -1,0 +1,18 @@
+<h2 mat-dialog-title class="add-book-dialog__title">Dodaj książkę</h2>
+<div mat-dialog-content class="add-book-dialog__content">
+  <app-add-book-form [formControl]="bookControl" />
+  @if (loading) {
+  <div class="add-book-dialog__loading">Dodawanie książki...</div>
+  }
+  @if (error) {
+    <div class="add-book-dialog__error">{{ error }}</div>
+  }
+</div>
+<div mat-dialog-actions align="end" class="add-book-dialog__actions">
+  <button mat-button (click)="onCancel()" class="add-book-dialog__cancel-btn">Anuluj</button>
+  <button mat-raised-button color="primary"
+    [disabled]="!bookControl.value?.title || !bookControl.value?.author || !bookControl.value?.publicationYear" (click)="onAdd()"
+    class="add-book-dialog__add-btn">
+    Dodaj
+  </button>
+</div>

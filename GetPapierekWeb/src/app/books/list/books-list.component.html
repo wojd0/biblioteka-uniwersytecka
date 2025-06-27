@@ -1,0 +1,62 @@
+<h2 class="books-list__title">Lista książek</h2>
+
+<div class="books-list__search">
+  <app-search-box [(value)]="searchTerm" label="Szukaj po tytule, autorze lub kategorii..."
+    (valueChange)="onSearchChange()"></app-search-box>
+</div>
+<div class="books-list">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 books-list__table">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Tytuł</th>
+      <td mat-cell *matCellDef="let book">{{ book.title }}</td>
+    </ng-container>
+    <ng-container matColumnDef="author">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Autor</th>
+      <td mat-cell *matCellDef="let book">{{ book.author }}</td>
+    </ng-container>
+    <ng-container matColumnDef="year">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Rok wydania</th>
+      <td mat-cell *matCellDef="let book">{{ book.publicationYear }}</td>
+    </ng-container>
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Kategoria</th>
+      <td mat-cell *matCellDef="let book">{{ book.category?.name }}</td>
+    </ng-container>
+    <ng-container matColumnDef="shelf">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Półka</th>
+      <td mat-cell *matCellDef="let book">{{ book.shelf }}</td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Wypożycz</th>
+      <td mat-cell *matCellDef="let book">
+        <button mat-button [matMenuTriggerFor]="rentMenu" color="primary">
+          <mat-icon>assignment</mat-icon>
+          Wypożycz
+        </button>
+        <mat-menu #rentMenu="matMenu">
+          <button mat-menu-item *ngFor="let user of users"
+            (click)="rentBook(book.bookId, user.userId)">
+            {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
+          </button>
+          <div *ngIf="users.length === 0" mat-menu-item disabled>
+            Brak dostępnych użytkowników
+          </div>
+        </mat-menu>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['title','author','year','category','shelf','actions']">
+    </tr>
+    <tr mat-row
+      *matRowDef="let row; columns: ['title','author','year','category','shelf','actions'];"></tr>
+  </table>
+
+  <div *ngIf="filteredBooks.length === 0" class="books-list__empty">
+    {{ searchTerm.trim() ? 'Brak książek spełniających kryteria wyszukiwania' : 'Brak książek do
+    wyświetlenia' }}
+  </div>
+
+</div>
+<button mat-raised-button color="primary" (click)="openAddDialog()" class="books-list__add-btn">
+  <mat-icon>add</mat-icon>
+  Dodaj książkę
+</button>

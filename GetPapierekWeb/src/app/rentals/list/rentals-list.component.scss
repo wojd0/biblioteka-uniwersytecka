@@ -1,0 +1,17 @@
+.rentals-list {
+  width: 100vw;
+  overflow-x: scroll;
+
+  &__title {
+    text-align: center;
+  }
+
+  &__search {
+    text-align: center;
+  }
+
+  &__add-btn {
+    margin: 15px auto;
+    float: right;
+  }
+}
