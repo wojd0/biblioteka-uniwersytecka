@@ -77,26 +77,24 @@ Poniżej przedstawiono 6 przykładów realizacji paradygmatów OOP w projekcie w
 
      ```html
      <app-navbar></app-navbar>
-     <router-outlet></router-outlet>
-     <app-home-card></app-home-card>
+     <main class="app__main">
+       <router-outlet class="app__router-outlet"></router-outlet>
+     </main>
      ```
 
 6. **Wstrzykiwanie zależności (Dependency Injection)**
 
    - W aplikacji frontendowej Angular wstrzykiwanie zależności realizowane jest poprzez deklarowanie serwisów w konstruktorach komponentów. Przykładowo, serwis `BookService` może być wstrzyknięty do komponentu `BooksComponent`, co pozwala na korzystanie z logiki biznesowej i komunikacji z API bez bezpośredniego tworzenia instancji serwisu.
-   - Plik: [`GetPapierekWeb/src/app/books/books.component.ts`](GetPapierekWeb/src/app/books/books.component.ts)
+   - Plik: [`GetPapierekWeb/src/app/books/list/books-list.component.ts`](GetPapierekWeb/src/app/books/list/books-list.component.ts)
    - Fragment:
 
      ```typescript
-     import {Component} from "@angular/core";
-     import {BookService} from "../shared/book.service";
-
-     @Component({
-       selector: "app-books",
-       templateUrl: "./books.component.html",
-     })
-     export class BooksComponent {
-       constructor(private bookService: BookService) {}
+     export class BooksListComponent implements OnInit {
+       private booksService = inject(BooksService);
+       private usersService = inject(UsersService);
+       private rentalsService = inject(RentalsService);
+       private dialog = inject(MatDialog);
+       private snackbar = inject(MatSnackBar);
        // ...
      }
      ```
