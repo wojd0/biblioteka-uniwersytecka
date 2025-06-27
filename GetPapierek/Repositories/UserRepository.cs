@@ -2,6 +2,7 @@ using GetPapierek.Data;
 using GetPapierek.Models;
 using GetPapierek.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using GetPapierek.Utils;
 
 namespace GetPapierek.Repositories
 {
@@ -31,7 +32,10 @@ namespace GetPapierek.Repositories
 
         public async Task<User> AddAsync(User user)
         {
-
+            if (!string.IsNullOrEmpty(user.Password))
+            {
+                user.Password = PasswordHasher.HashPassword(user.Password);
+            }
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();
             return user;
@@ -43,6 +47,10 @@ namespace GetPapierek.Repositories
             if (existingUser == null)
                 return null;
 
+            if (!string.IsNullOrEmpty(user.Password) && user.Password != existingUser.Password)
+            {
+                user.Password = PasswordHasher.HashPassword(user.Password);
+            }
             _context.Entry(existingUser).CurrentValues.SetValues(user);
             await _context.SaveChangesAsync();
             return existingUser;
@@ -61,9 +69,9 @@ namespace GetPapierek.Repositories
 
         public async Task<User?> AuthenticateAsync(string email, string password)
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
-
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null) return null;
+            if (!PasswordHasher.VerifyPassword(password, user.Password)) return null;
             return user;
         }
     }
