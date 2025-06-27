@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 import { map, Observable, switchMap, take } from 'rxjs';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-rentals-list',
@@ -31,6 +32,7 @@ import { map, Observable, switchMap, take } from 'rxjs';
 })
 export class RentalsListComponent implements OnInit {
   private rentalsService = inject(RentalsService);
+  auth = inject(AuthService);
 
   rentals: Rental[] = [];
   filteredRentals: Rental[] = [];

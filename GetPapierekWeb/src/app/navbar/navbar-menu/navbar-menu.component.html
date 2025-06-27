@@ -1,13 +1,27 @@
-@if(typeof isMobile() === 'boolean') {
-  @for (item of menuItems(); track item.url) {
-    @if (isMobile()) {
-      <button mat-icon-button [routerLink]="item.url" class="navbar__link navbar__link--mobile">
-        <mat-icon class="navbar__icon">{{ item.icon }}</mat-icon>
+<div style="display: flex;">
+  @if(typeof isMobile() === 'boolean') {
+    @for (item of menuItems(); track item.url) {
+      @if (!item.protected || isLoggedIn()) {
+        @if (isMobile()) {
+          <button mat-icon-button [routerLink]="item.url" class="navbar__link navbar__link--mobile">
+            <mat-icon class="navbar__icon">{{ item.icon }}</mat-icon>
+          </button>
+          } @else {
+          <button mat-button [routerLink]="item.url" class="navbar__link">
+            <span class="navbar__label">{{ item.label }}</span>
+          </button>
+        }
+      }
+    }
+    @if (!isLoggedIn()) {
+      <button mat-icon-button routerLink="/login">
+        <mat-icon>person</mat-icon>
       </button>
     } @else {
-    <button mat-button [routerLink]="item.url" class="navbar__link">
-      <span class="navbar__label">{{ item.label }}</span>
-    </button>
+      <button mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
     }
   }
-}
+</div>
+

@@ -6,7 +6,6 @@
   </app-search-box>
 </div>
 <div class="users-list">
-
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z2 users-list__table">
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Imię i nazwisko</th>
@@ -22,12 +21,10 @@
       <td colspan="2" class="users-list__empty">Brak użytkowników do wyświetlenia</td>
     </tr>
   </table>
-
   <div *ngIf="filteredUsers.length === 0" class="users-list__empty">
     {{ searchTerm.trim() ? 'Brak użytkowników spełniających kryteria wyszukiwania' : 'Brak
     użytkowników do wyświetlenia' }}
   </div>
-
   <button mat-raised-button color="primary" (click)="openAddDialog()" class="users-list__add-btn">
     <mat-icon>add</mat-icon>
     Dodaj użytkownika

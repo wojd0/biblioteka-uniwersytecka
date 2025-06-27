@@ -38,9 +38,6 @@
             (click)="rentBook(book.bookId, user.userId)">
             {{ user.firstName }} {{ user.lastName }} ({{ user.email }})
           </button>
-          <div *ngIf="users.length === 0" mat-menu-item disabled>
-            Brak dostępnych użytkowników
-          </div>
         </mat-menu>
       </td>
     </ng-container>
@@ -48,13 +45,14 @@
     </tr>
     <tr mat-row
       *matRowDef="let row; columns: ['title','author','year','category','shelf','actions'];"></tr>
+    <tr *ngIf="dataSource.data.length === 0" class="books-list__empty-row">
+      <td colspan="6" class="books-list__empty">Brak książek do wyświetlenia</td>
+    </tr>
   </table>
-
   <div *ngIf="filteredBooks.length === 0" class="books-list__empty">
     {{ searchTerm.trim() ? 'Brak książek spełniających kryteria wyszukiwania' : 'Brak książek do
     wyświetlenia' }}
   </div>
-
 </div>
 <button mat-raised-button color="primary" (click)="openAddDialog()" class="books-list__add-btn">
   <mat-icon>add</mat-icon>

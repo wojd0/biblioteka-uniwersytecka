@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-navbar-menu',
@@ -9,7 +10,14 @@ import { RouterLink } from '@angular/router';
   imports: [MatButtonModule, MatIconModule, RouterLink],
 })
 export class NavbarMenuComponent {
-  menuItems = signal<{ label: string; icon: string; url: string }[]>([
+  private readonly auth = inject(AuthService);
+
+  isMobile = signal<boolean | null>(null);
+  resizeObserver = signal<ResizeObserver | null>(null);
+
+  menuItems = signal<
+    { label: string; icon: string; url: string; protected?: boolean }[]
+  >([
     {
       label: 'Książki',
       icon: 'menu_book',
@@ -19,15 +27,23 @@ export class NavbarMenuComponent {
       label: 'Wypożyczenia',
       icon: 'assignment_returned',
       url: '/wypozyczenia',
+      protected: true,
     },
     {
       label: 'Użytkownicy',
       icon: 'people',
       url: '/uzytkownicy',
+      protected: true,
     },
   ]);
-  isMobile = signal<boolean | null>(null);
-  resizeObserver = signal<ResizeObserver | null>(null);
+
+  isLoggedIn() {
+    return this.auth.isLoggedIn();
+  }
+
+  logout() {
+    this.auth.logout();
+  }
 
   ngOnInit() {
     this.handleResponsiveButtons();

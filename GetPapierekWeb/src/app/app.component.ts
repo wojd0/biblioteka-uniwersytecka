@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { NavbarComponent } from './navbar/navbar.component';
+import { AuthService } from './shared/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -12,4 +13,9 @@ import { NavbarComponent } from './navbar/navbar.component';
 })
 export class AppComponent {
   title = 'GetPapierekWeb';
+
+  constructor() {
+    const auth = inject(AuthService);
+    auth.restoreSession();
+  }
 }

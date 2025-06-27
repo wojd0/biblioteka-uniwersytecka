@@ -10,6 +10,7 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-users-list',
@@ -31,6 +32,7 @@ import { SearchBoxComponent } from '../../shared/components/search-box/search-bo
 })
 export class UsersListComponent implements OnInit {
   private usersService = inject(UsersService);
+  auth = inject(AuthService);
 
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -93,7 +95,8 @@ export class UsersListComponent implements OnInit {
     };
     this.usersService.addUser(newUser).subscribe({
       next: () => this.loadUsers(),
-      error: (err) => window.alert('Błąd podczas dodawania użytkownika: ' + err.message),
+      error: (err) =>
+        window.alert('Błąd podczas dodawania użytkownika: ' + err.message),
     });
   }
 }

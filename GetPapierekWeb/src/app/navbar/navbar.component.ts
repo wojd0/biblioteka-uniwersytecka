@@ -3,7 +3,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { NavbarMenuComponent } from "./navbar-menu/navbar-menu.component";
+import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
 
 @Component({
   selector: 'app-navbar',

@@ -1,0 +1,13 @@
+<form class="login-form" (ngSubmit)="onLogin()" #loginForm="ngForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" name="email" [(ngModel)]="email" required />
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Hasło</mat-label>
+    <input matInput type="password" name="password" [(ngModel)]="password" required />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.form.valid">Zaloguj
+    się</button>
+  <div *ngIf="error" class="login-form__error">{{ error }}</div>
+</form>

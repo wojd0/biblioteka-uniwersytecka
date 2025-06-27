@@ -17,6 +17,7 @@ import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { AddBookDialogComponent } from './add-book-dialog/add-book-dialog.component';
 import { Book } from '../../shared/models';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-books-list',
@@ -44,6 +45,7 @@ export class BooksListComponent implements OnInit {
   private rentalsService = inject(RentalsService);
   private dialog = inject(MatDialog);
   private snackbar = inject(MatSnackBar);
+  private auth = inject(AuthService);
 
   books: Book[] = [];
   filteredBooks: Book[] = [];
