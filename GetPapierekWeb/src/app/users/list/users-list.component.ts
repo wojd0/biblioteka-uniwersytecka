@@ -81,14 +81,19 @@ export class UsersListComponent implements OnInit {
     if (!lastName) return;
     const email = window.prompt('Podaj email użytkownika:');
     if (!email) return;
+    const password = window.prompt('Podaj hasło użytkownika:');
+    if (!password) return;
 
     const newUser: User = {
-      userId: Math.max(0, ...this.users.map((u) => u.userId || 0)) + 1,
+      userId: 0, // userId will be set by backend
       firstName,
       lastName,
       email,
+      password,
     };
-    this.users.push(newUser);
-    this.applyFilter();
+    this.usersService.addUser(newUser).subscribe({
+      next: () => this.loadUsers(),
+      error: (err) => window.alert('Błąd podczas dodawania użytkownika: ' + err.message),
+    });
   }
 }
