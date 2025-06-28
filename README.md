@@ -11,6 +11,9 @@ Możliwości programu
 - Usuwanie pozycji
 - Modyfikowanie rekordów
 - Przyjazny sposób wyszukiwania
+- System logowania i rejestracji użytkowników
+- Responsywny interfejs użytkownika
+- Otwarte API dla deweloperów
 
 Język obsługi progamu: C#
 
