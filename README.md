@@ -8,14 +8,24 @@ Przy pomocy API Getpapierek użytkownik może wejść w interakcje z bazą danyc
 Możliwości programu
 
 - Dodawania pozycji
-- Usuwanie pozycji
-- Modyfikowanie rekordów
-- Przyjazny sposób wyszukiwania
-- System logowania i rejestracji użytkowników
-- Responsywny interfejs użytkownika
-- Otwarte API dla deweloperów
 
-Język obsługi progamu: C#
+  <img width="422" alt="image" src="https://github.com/user-attachments/assets/12e153db-8f46-4360-8f28-a67bab1f2035" />
+- Przyjazny sposób wyszukiwania
+
+  <img width="330" alt="image" src="https://github.com/user-attachments/assets/bc4870a9-118f-4743-af19-196bc5e96c97" />
+- System logowania i rejestracji użytkowników
+
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/eeccfde0-aae7-471d-bf7d-ccd1d2cf8db0" />
+- Responsywny interfejs użytkownika
+
+  <img width="400" alt="image" src="https://github.com/user-attachments/assets/4e616477-73ba-49fc-88c3-16fa6562d556" />
+- Otwarte API dla deweloperów (http://localhost:5241/swagger/index.html)
+
+  <img width="449" alt="image" src="https://github.com/user-attachments/assets/b6bdde90-faa2-458b-987d-50663cf63013" />
+
+Zastosowane technologie:
+- Backend: Aplikacja REST API w .NET Core, baza danych sqlite
+- Frontend: Angular 20 + Angular Material
 
 ## Przykłady paradygmatów programowania obiektowego w projekcie
 
@@ -97,3 +107,10 @@ Poniżej przedstawiono 6 przykładów realizacji paradygmatów OOP w projekcie w
        // ...
      }
      ```
+
+## Perspektywy na dalszy rozwój
+- System zarządzania uprawnieniami użytkowników
+- Hostowana baza danych MySQL
+- Logowanie za pomocą OAuth, np. kontem Google
+- Resetowanie haseł, wysyłka e-maili technicznych
+- System kar za przetrzymanie książki
