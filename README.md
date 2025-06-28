@@ -20,16 +20,12 @@ Poniżej przedstawiono 6 przykładów realizacji paradygmatów OOP w projekcie w
 
 1. **Enkapsulacja (Hermetyzacja)**
 
-   - Klasy `Book`, `User`, `Rental` oraz `Category` posiadają właściwości i logikę związaną z danym bytem, ukrywając szczegóły implementacji.
-   - Plik: [`GetPapierek/Models/Book.cs`](GetPapierek/Models/Book.cs)
+   - Wstrzykiwane zależności są dostępne tylko z poziomu klasy, do której zostały wstrzyknięte. By zapobiec problemom z dostępem do repozytoriów, są one prywatne i dostępne tylko w obrębie klasy, co zapewnia hermetyzację.
+   - Plik: [`GetPapierek/Controllers/RentalController.cs`](GetPapierek/Controllers/RentalController.cs)
    - Fragment:
      ```csharp
-     public class Book
-     {
-         public int BookId { get; set; }
-         public required string Title { get; set; }
-         // ...
-     }
+      private readonly IRentalRepository _wypozyczenieRepository;
+      private readonly IBookRepository _ksiazkaRepository;
      ```
 
 2. **Abstrakcja**
