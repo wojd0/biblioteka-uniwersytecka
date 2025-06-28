@@ -1,4 +1,4 @@
-# Aplikacja biblioteki uniwersyteckiej GetPapierek
+# Aplikacja biblioteki uniwersyteckiej
 
 W pełni funkcjonalna biblioteka uniwersytecka przyjazna zarówno dla użytkowników jak i administratorów.
 
