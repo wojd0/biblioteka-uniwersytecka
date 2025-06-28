@@ -57,20 +57,18 @@ export class AddBookDialogComponent {
       title: this.bookControl.value?.title,
       author: this.bookControl.value?.author,
       publicationYear: this.bookControl.value?.publicationYear,
-      shelf: this.bookControl.value?.shelf,
+      shelf: '-',
       categoryId: this.bookControl.value?.categoryId,
     };
-    // this.booksService.addBook(payload).subscribe({
-    //   next: (createdBook) => {
-    //     this.loading = false;
-    //     this.dialogRef.close(createdBook);
-    //   },
-    //   error: (err) => {
-    //     this.loading = false;
-    //     this.error = 'Błąd podczas dodawania książki.';
-    //   },
-    // });
-
-    console.log(payload);
+    this.booksService.addBook(payload).subscribe({
+      next: (createdBook) => {
+        this.loading = false;
+        this.dialogRef.close(createdBook);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = 'Błąd podczas dodawania książki.';
+      },
+    });
   }
 }

@@ -45,7 +45,7 @@ export class AddBookFormComponent implements ControlValueAccessor, Validator {
     author: new FormControl<string>('', [Validators.required]),
     publicationYear: new FormControl<number | undefined>(undefined, [Validators.required, Validators.min(1)]),
     categoryId: new FormControl<number | undefined>(undefined),
-    shelf: new FormControl<string | undefined>(''),
+    shelf: new FormControl<string | undefined>('-'),
   });
 
   private onValidatorChange: () => void = () => {};

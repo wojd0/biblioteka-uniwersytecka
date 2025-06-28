@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
 
@@ -9,7 +8,7 @@ import { NavbarMenuComponent } from './navbar-menu/navbar-menu.component';
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss'],
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule, RouterLink, NavbarMenuComponent],
+  imports: [MatToolbarModule, MatButtonModule, RouterLink, NavbarMenuComponent],
 })
 export class NavbarComponent{
 }

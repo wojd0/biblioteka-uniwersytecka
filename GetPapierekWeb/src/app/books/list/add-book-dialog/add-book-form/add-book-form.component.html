@@ -1,7 +1,7 @@
 <form class="add-book-dialog__form" [formGroup]="bookForm">
   <mat-form-field class="add-book-dialog__field">
     <mat-label>Tytuł</mat-label>
-    <input matInput [formControl]="bookForm.controls.author" name="title" #title />
+    <input matInput [formControl]="bookForm.controls.title" name="title" #title />
     <mat-error *ngIf="bookForm.controls.author.hasError('required')">
       Tytuł jest wymagany
     </mat-error>
@@ -25,10 +25,6 @@
     <mat-form-field class="add-book-dialog__field">
       <mat-label>Kategoria</mat-label>
       <input matInput type="number" [formControl]="bookForm.controls.categoryId" name="category" />
-    </mat-form-field>
-    <mat-form-field class="add-book-dialog__field">
-      <mat-label>Półka</mat-label>
-      <input matInput [formControl]="bookForm.controls.shelf" name="shelf" />
     </mat-form-field>
   </div>
 </form>
