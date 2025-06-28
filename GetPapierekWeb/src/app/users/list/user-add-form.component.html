@@ -1,0 +1,27 @@
+<h2 mat-dialog-title>Dodaj użytkownika</h2>
+<form [formGroup]="userForm" (ngSubmit)="submit()" class="user-add-form">
+  <mat-form-field>
+    <mat-label>Imię</mat-label>
+    <input matInput formControlName="firstName" required />
+    <mat-error *ngIf="userForm.get('firstName')?.hasError('required')">Imię jest
+      wymagane</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Nazwisko</mat-label>
+    <input matInput formControlName="lastName" required />
+    <mat-error *ngIf="userForm.get('lastName')?.hasError('required')">Nazwisko jest
+      wymagane</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" required />
+    <mat-error *ngIf="userForm.get('email')?.hasError('required')">Email jest wymagany</mat-error>
+    <mat-error *ngIf="userForm.get('email')?.hasError('email')">Nieprawidłowy email</mat-error>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Hasło</mat-label>
+    <input matInput type="password" formControlName="password" required />
+  </mat-form-field>
+  <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">Dodaj
+    użytkownika</button>
+</form>

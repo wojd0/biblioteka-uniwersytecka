@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, inject } from '@angular/core';
 import { UsersService, User } from '../users.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,6 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { SearchBoxComponent } from '../../shared/components/search-box/search-box.component';
 import { AuthService } from '../../shared/auth.service';
+import { UserAddFormComponent } from './user-add-form.component';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-users-list',
@@ -20,6 +22,7 @@ import { AuthService } from '../../shared/auth.service';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     MatFormFieldModule,
     MatInputModule,
@@ -28,11 +31,13 @@ import { AuthService } from '../../shared/auth.service';
     MatButtonModule,
     MatSortModule,
     SearchBoxComponent,
+    MatDialogModule,
   ],
 })
 export class UsersListComponent implements OnInit {
   private usersService = inject(UsersService);
   auth = inject(AuthService);
+  private dialog = inject(MatDialog);
 
   users: User[] = [];
   filteredUsers: User[] = [];
@@ -77,26 +82,18 @@ export class UsersListComponent implements OnInit {
   }
 
   openAddDialog() {
-    const firstName = window.prompt('Podaj imię użytkownika:');
-    if (!firstName) return;
-    const lastName = window.prompt('Podaj nazwisko użytkownika:');
-    if (!lastName) return;
-    const email = window.prompt('Podaj email użytkownika:');
-    if (!email) return;
-    const password = window.prompt('Podaj hasło użytkownika:');
-    if (!password) return;
-
-    const newUser: User = {
-      userId: 0, // userId will be set by backend
-      firstName,
-      lastName,
-      email,
-      password,
-    };
-    this.usersService.addUser(newUser).subscribe({
-      next: () => this.loadUsers(),
-      error: (err) =>
-        window.alert('Błąd podczas dodawania użytkownika: ' + err.message),
+    const dialogRef = this.dialog.open(UserAddFormComponent, {
+      width: '400px',
+      height: 'auto',
+    });
+    dialogRef.afterClosed().subscribe((result: User | undefined) => {
+      if (result) {
+        this.usersService.addUser(result).subscribe({
+          next: () => this.loadUsers(),
+          error: (err) =>
+            window.alert('Błąd podczas dodawania użytkownika: ' + err.message),
+        });
+      }
     });
   }
 }

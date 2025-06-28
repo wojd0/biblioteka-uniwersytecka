@@ -35,7 +35,9 @@ export class LoginFormComponent {
     this.auth.login(this.email, this.password).subscribe({
       next: () => {
         this.router.navigateByUrl('/');
-        this.notificationService.open('Zalogowano pomyślnie');
+        this.notificationService.open('Zalogowano pomyślnie', undefined, {
+          duration: 3000,
+        });
       },
       error: (err) => {
         this.error = err.error || 'Błąd logowania';
